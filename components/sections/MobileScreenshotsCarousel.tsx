@@ -1,0 +1,95 @@
+'use client';
+
+import { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
+
+// MOCK: Rutas de los pantallazos individuales (reemplazar por los reales)
+const individualScreenshots = [
+  { id: 1, src: '/images/ceo-dashboard.png', alt: 'CEO Dashboard' },
+  { id: 2, src: '/images/clients-dashboard.png', alt: 'Clients Pipeline' },
+  { id: 3, src: '/images/finance-dashboard.png', alt: 'Finance Tracking' },
+  { id: 4, src: '/images/marketing-dashboard.png', alt: 'Operations Hub' },
+];
+
+export default function MobileScreenshotsCarousel() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Sincroniza los dots con la posición del scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!scrollRef.current) return;
+      const scrollPosition = scrollRef.current.scrollLeft;
+      const width = scrollRef.current.clientWidth;
+      // Calcula qué slide está más centrado
+      const index = Math.round(scrollPosition / width);
+      setActiveIndex(index);
+    };
+
+    const currentRef = scrollRef.current;
+    if (currentRef) {
+      currentRef.addEventListener('scroll', handleScroll, { passive: true });
+    }
+    return () => {
+      if (currentRef) {
+        currentRef.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
+
+  const scrollTo = (index: number) => {
+    if (!scrollRef.current) return;
+    const width = scrollRef.current.clientWidth;
+    scrollRef.current.scrollTo({
+      left: width * index,
+      behavior: 'smooth'
+    });
+  };
+
+  return (
+    <div className="w-full flex flex-col gap-5">
+      {/* 
+        Contenedor del Carrusel: 
+        - snap-x snap-mandatory: Scroll nativo CSS para rendimiento
+        - hub-scroll: Oculta la barra de scroll nativa (de globals.css)
+      */}
+      <div
+        ref={scrollRef}
+        className="flex w-full overflow-x-auto snap-x snap-mandatory hub-scroll gap-4 pb-2"
+      >
+        {individualScreenshots.map((shot) => (
+          <div
+            key={shot.id}
+            // w-[85%] permite que se asome un poco la siguiente imagen (mejor UX)
+            className="relative w-[85%] shrink-0 snap-center rounded-2xl overflow-hidden shadow-lg border border-border bg-navy"
+          >
+            {/* Ajusta el aspect ratio según las proporciones de tus pantallazos */}
+            <div className="relative w-full aspect-[4/5]">
+              <Image
+                src={shot.src}
+                alt={shot.alt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 85vw, 50vw"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Paginación (Dots) */}
+      <div className="flex justify-center items-center gap-2">
+        {individualScreenshots.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => scrollTo(index)}
+            aria-label={`Go to screenshot ${index + 1}`}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              activeIndex === index ? 'w-4 bg-primary' : 'w-2 bg-primary/30'
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
