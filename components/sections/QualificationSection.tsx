@@ -4,7 +4,7 @@ export default function QualificationSection() {
   return (
     <section 
       aria-labelledby="qualification-title" 
-      className="py-24 px-4 md:px-8 bg-background"
+      className="py-24 px-4 md:px-8 bg-[#FAF8FF]"
     >
       <div className="max-w-5xl mx-auto">
         
@@ -56,7 +56,7 @@ export default function QualificationSection() {
           </article>
 
           {/* Tarjeta: This isn't for you */}
-          <article className="bg-foreground/[0.03] rounded-2xl p-8 md:p-10">
+          <article className="bg-[#F2F3FF] rounded-2xl p-8 md:p-10">
             <h3 className="text-2xl font-bold text-foreground mb-2">
               This isn't for you
             </h3>

@@ -8,8 +8,8 @@ const chaos = [
 
 export function Problem() {
   return (
-    <section id="problem" aria-labelledby="problem-title" className="px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
-      <div className="mx-auto grid max-w-[72rem] items-start gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+    <section id="problem" aria-labelledby="problem-title" className="bg-[#FAF8FF] px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
+      <div className="mx-auto grid max-w-[72rem] items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
         <div>
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-primary">The real problem</p>
           <h2 id="problem-title" className="max-w-[16ch] text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-[2.6rem] lg:leading-[1.15]">
@@ -36,18 +36,21 @@ export function Problem() {
           </div>
         </div>
 
-        <div className="rounded-[1.5rem] bg-card p-4 shadow-[0_10px_40px_rgba(15,23,42,0.06)] sm:p-5">
-          <ul className="space-y-3">
-            {chaos.map((item) => (
-              <li key={item} className="flex gap-3 rounded-2xl bg-danger-soft px-4 py-3.5 text-sm leading-snug text-foreground sm:text-[0.95rem]">
-                <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-danger text-[0.7rem] font-bold text-white">
-                  ×
-                </span>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
+       <div className="rounded-[1.5rem] bg-card p-4 shadow-[0_10px_40px_rgba(15,23,42,0.06)] sm:p-5">
+        <ul className="space-y-3">
+          {chaos.map((item) => (
+            <li
+              key={item}
+              className="flex gap-2 rounded-2xl bg-[#FFDAD6]/20 px-4 py-3.5 text-sm leading-snug text-foreground sm:text-[0.95rem]"
+            >
+              <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-[#BA1A1A] text-[1rem] font-bold text-[#BA1A1A]">
+                ×
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
       </div>
     </section>
   );

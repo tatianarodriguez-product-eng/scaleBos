@@ -11,7 +11,7 @@ export function WhatYouGet() {
   const TeamIcon = hubIcons[6];
 
   return (
-    <section id="hubs" aria-labelledby="hubs-title" className="px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
+    <section id="hubs" aria-labelledby="hubs-title" className="bg-[#F2F3FF] px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
       <div className="mx-auto max-w-[72rem]">
         
         {/* Textos de la sección */}
@@ -36,7 +36,7 @@ export function WhatYouGet() {
             return (
               <article key={hub.name} className="rounded-[1.35rem] bg-card p-6 shadow-[0_8px_30px_rgba(15,23,42,0.04)]">
                 <div className="mb-4 flex items-center gap-3">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary-soft text-primary">
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#DBE1FF] text-primary">
                     <Icon className="h-5 w-5" />
                   </span>
                   <h3 className="text-lg font-bold">{hub.name}</h3>

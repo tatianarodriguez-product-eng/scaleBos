@@ -2,9 +2,47 @@ type IconProps = { className?: string };
 
 export function IconBuilding({ className }: IconProps) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M4 20V8l8-4 8 4v12" stroke="currentColor" strokeWidth="1.8" />
-      <path d="M9 20v-6h6v6M9 11h.01M12 11h.01M15 11h.01M9 14h.01M15 14h.01" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    <svg
+      className={className}
+      viewBox="0 0 96 96"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      {/* Estructura principal del edificio */}
+      <path
+        d="M30 76V19C30 15.7 32.7 13 36 13H62C65.3 13 68 15.7 68 19V76"
+        stroke="currentColor"
+        strokeWidth="5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      {/* Extensión lateral izquierda */}
+      <path
+        d="M30 38H23C18.6 38 15 41.6 15 46V68C15 72.4 18.6 76 23 76H73"
+        stroke="currentColor"
+        strokeWidth="5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      {/* Extensión lateral derecha */}
+      <path
+        d="M68 32H72C76.4 32 80 35.6 80 40V68C80 72.4 76.4 76 72 76"
+        stroke="currentColor"
+        strokeWidth="5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      {/* Líneas interiores */}
+      <path
+        d="M42 26H57M42 40H57M42 54H57"
+        stroke="currentColor"
+        strokeWidth="5"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
@@ -21,9 +59,30 @@ export function IconClipboard({ className }: IconProps) {
 
 export function IconMegaphone({ className }: IconProps) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M4 10v4a2 2 0 0 0 2 2h1l3 4V8L7 10H6a2 2 0 0 0-2 2Z" stroke="currentColor" strokeWidth="1.8" />
-      <path d="M14 8.5c1.8.8 3 2.2 3 3.5s-1.2 2.7-3 3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      {/* Cuerpo del megáfono */}
+      <path
+        d="M5 10L17.4 6.5C17.9 6.35 18.3 6.7 18.3 7.2V16.8C18.3 17.3 17.9 17.65 17.4 17.5L5 14V10Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      {/* Empuñadura */}
+      <path
+        d="M6.8 14.5L7.5 16.8C7.9 18.1 9.2 18.8 10.4 18.4C11.5 18.1 12.1 16.9 11.7 15.8"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }

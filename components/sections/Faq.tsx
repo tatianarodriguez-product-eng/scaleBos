@@ -30,7 +30,7 @@ export default function FaqSection() {
   return (
     <section 
       aria-labelledby="faq-title" 
-      className="py-24 px-4 md:px-8 bg-background"
+      className="py-24 px-4 md:px-8 bg-[#FAF8FF]"
     >
       {/* Inyección de JSON-LD para GEO/SEO */}
       <script
