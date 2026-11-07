@@ -116,7 +116,7 @@ export default function BookingSection() {
   };
 
   return (
-    <section className="bg-primary py-24 px-4 md:px-8" id='booking'>
+    <section className="bg-[#2563EB] py-24 px-4 md:px-8" id='booking'>
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
         
         {/* Columna Izquierda: Beneficios */}
@@ -128,7 +128,7 @@ export default function BookingSection() {
             Ready to scale past €100k/mo while actually working less?
           </h2>
           
-          <div className="bg-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-sm border border-white/10">
+          <div className="bg-black/10 rounded-2xl p-6 md:p-8 backdrop-blur-sm border border-white/10">
             <h3 className="text-xl font-bold mb-6">
               Book a free 45-minute system audit.
             </h3>

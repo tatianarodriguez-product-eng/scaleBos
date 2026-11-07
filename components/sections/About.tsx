@@ -25,7 +25,7 @@ export default function AboutSection() {
           <div className="inset-0 bg-primary/10 blur-3xl transform scale-110 -z-10 rounded-full hidden md:block"></div>
           
           {/* Contenedor de la Imagen tipo "Card" */}
-          <div className="bg-white p-2 rounded-2xl shadow-xl border border-border/50 relative z-10">
+          <div className="bg-white p-2 rounded-2xl shadow-xl shadow-[0px_4px_12px_rgba(15,30,54,0.08),0px_16px_48px_rgba(37,99,235,0.18)] border border-border/50 relative z-10">
             <div className="relative w-full aspect-square md:aspect-[4/5] rounded-xl overflow-hidden bg-muted/10">
               <Image 
                 src="/images/przemek-about.png" // NOTA: Reemplazar por la ruta final

@@ -3,7 +3,7 @@ import { Logo } from "@/components/ui/Logo";
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-card">
+    <footer className="border-t border-border bg-[#F2F3FF]">
       <div className="mx-auto flex max-w-[72rem] flex-col gap-4 px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-10">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
           <Logo />

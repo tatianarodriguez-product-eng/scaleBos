@@ -10,7 +10,7 @@ const stats = [
 
 export function Hero() {
   return (
-    <section aria-labelledby="hero-title" className="px-5 pb-10 sm:px-8 lg:px-10">
+    <section aria-labelledby="hero-title" className="bg-[#FAF8FF] px-5 py-10 sm:px-8 lg:px-10">
       <div className="mx-auto max-w-[72rem]">
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-12">
           <div>
@@ -42,7 +42,7 @@ export function Hero() {
           </div>
 
           <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-            <div className="overflow-hidden rounded-[1.35rem] bg-card p-1.5 shadow-[0_18px_50px_rgba(15,23,42,0.12)]">
+            <div className="overflow-hidden rounded-[1.35rem] bg-card p-1.5 shadow-[0px_4px_12px_rgba(15,30,54,0.08),0px_16px_48px_rgba(37,99,235,0.18)]">
               <div className="relative aspect-[4/3.6] overflow-hidden rounded-[1.1rem]">
                 <Image
                   src="/images/przemek-hero.png"
@@ -62,7 +62,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="mt-12 rounded-[1.5rem] bg-primary-soft/80 px-4 py-6 sm:px-6 lg:px-2">
+        <div className="mt-12 rounded-[1.5rem] bg-[#DBE1FF] shadow-sm px-4 py-6 sm:px-6 lg:px-2">
           <dl className="grid grid-cols-2 divide-y divide-primary/10 sm:divide-y-0 lg:grid-cols-4 lg:divide-x">
             {stats.map((stat) => (
               <div key={stat.value} className="flex flex-col items-center px-3 py-4 text-center">
