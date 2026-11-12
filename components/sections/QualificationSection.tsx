@@ -1,10 +1,11 @@
 import { idealFit, notFit } from "@/lib/content";
+import { AuditButton } from "../ui/AuditButton";
 
 export default function QualificationSection() {
   return (
     <section 
       aria-labelledby="qualification-title" 
-      className="py-24 px-4 md:px-8 bg-[#FAF8FF]"
+      className="py-24 px-4 md:px-8 bg-background"
     >
       <div className="max-w-5xl mx-auto">
         
@@ -20,7 +21,7 @@ export default function QualificationSection() {
             I only work with<br className="hidden md:block" /> one kind of coaching business
           </h2>
           <p className="text-muted text-lg max-w-2xl mx-auto leading-relaxed">
-            I build <strong className="text-foreground font-semibold">only 2 installs per month</strong>, so I choose carefully who I work with.
+            I build <strong className="text-foreground font-semibold">only 2 installs per month</strong>, <br className="hidden md:block" /> so I choose carefully who I work with.
             <br /><br />
             When the month's slots are taken, the next start date moves.
           </p>
@@ -56,7 +57,7 @@ export default function QualificationSection() {
           </article>
 
           {/* Tarjeta: This isn't for you */}
-          <article className="bg-[#F2F3FF] rounded-2xl p-8 md:p-10">
+          <article className="bg-navy-muted rounded-2xl p-8 md:p-10">
             <h3 className="text-2xl font-bold text-foreground mb-2">
               This isn't for you
             </h3>
@@ -85,15 +86,7 @@ export default function QualificationSection() {
 
         {/* CTA */}
         <div className="flex justify-center">
-          <a 
-            href="#booking" 
-            className="w-full md:w-auto bg-primary hover:bg-primary-hover text-primary-foreground font-semibold py-4 px-8 rounded-lg transition-colors flex items-center justify-center gap-2"
-          >
-            Book your free system audit
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </a>
+          <AuditButton />
         </div>
 
       </div>

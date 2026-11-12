@@ -8,11 +8,11 @@ const outcomes = [
 
 export function HowToFix() {
   return (
-    <section aria-labelledby="fix-title" className="px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
+    <section aria-labelledby="fix-title" className="px-5 py-16 sm:px-8 lg:px-10 lg:py-24 bg-background">
       <div className="mx-auto grid max-w-[72rem] items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
         <div>
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-primary">How to fix it</p>
-          <h2 id="fix-title" className="max-w-[14ch] text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-[2.6rem] lg:leading-[1.15]">
+          <h2 id="fix-title" className="lg:max-w-[22ch] max-w-[19ch] text-4xl font-extrabold tracking-tight sm:text-4xl lg:text-[2rem] lg:leading-[1.15]">
             An organized business doesn&apos;t come from working more
           </h2>
           <div className="mt-6 space-y-4 text-[1.02rem] leading-relaxed text-muted">
@@ -38,14 +38,25 @@ export function HowToFix() {
           </div>
         </div>
 
-        <div className="rounded-[1.5rem] bg-card p-4 shadow-[0_10px_40px_rgba(15,23,42,0.06)] sm:p-5">
-          <ul className="space-y-3">
+        <div className="rounded-[1.5rem] bg-card lg:p-8 shadow-[0_10px_40px_rgba(15,23,42,0.06)] p-5">
+          <ul className="space-y-4">
             {outcomes.map((item) => (
-              <li key={item} className="flex gap-3 rounded-2xl bg-primary-soft px-4 py-3.5 text-sm leading-snug text-foreground sm:text-[0.95rem]">
-                <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-[#2563EB] border-2 text-[1rem] font-bold text-[#2563EB] font-semibold">
-                  ✓
-                </span>
-                {item}
+              <li
+                key={item}
+                className="flex items-center gap-4 rounded-[1.15rem] bg-navy-muted px-5 py-4 text-sm leading-snug text-foreground/90 sm:text-[0.95rem]"
+              >
+                <svg 
+                  className="h-6 w-6 shrink-0 text-primary" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2.5"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="10" strokeWidth="2" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8 12l3 3 5-6" />
+                </svg>
+                <span className="flex-1">{item}</span>
               </li>
             ))}
           </ul>

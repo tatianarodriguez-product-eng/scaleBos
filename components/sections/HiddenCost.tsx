@@ -21,9 +21,9 @@ const costs = [
 export function HiddenCost() {
   return (
     <section aria-labelledby="cost-title" className="bg-navy text-white">
-      <div className="mx-auto max-w-[72rem] px-5 py-16 text-center sm:px-8 lg:px-10 lg:py-24">
-        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-white/45">The hidden cost</p>
-        <h2 id="cost-title" className="mx-auto max-w-[18ch] text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-[2.7rem] lg:leading-[1.15]">
+      <div className="mx-auto max-w-[72rem] px-5 py-16 text-left lg:text-center sm:px-8 lg:px-10 lg:py-24">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-primary-soft">The hidden cost</p>
+        <h2 id="cost-title" className="mx-auto lg:max-w-[20ch] text-2xl font-extrabold tracking-tight  lg:text-[2.7rem] lg:leading-[1.15]">
           You didn&apos;t start a business to become its 24/7 employee
         </h2>
         <div className="mx-auto mt-6 max-w-2xl space-y-4 text-base leading-relaxed text-navy-muted sm:text-lg">

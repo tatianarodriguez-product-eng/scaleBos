@@ -5,7 +5,7 @@ export default function TestimonialsSection() {
   return (
     <section 
       aria-labelledby="testimonials-title" 
-      className="py-24 px-4 md:px-8 bg-[#F2F3FF]"
+      className="py-24 px-4 md:px-8 bg-navy-muted"
     >
       <div className="max-w-6xl mx-auto">
         
