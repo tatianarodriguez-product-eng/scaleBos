@@ -1,9 +1,10 @@
 import { steps } from "@/lib/content";
+import { AuditButton } from "../ui/AuditButton";
 
 export default function RoadmapSection() {
   return (
-    <section aria-labelledby="roadmap-title" className="bg-navy py-24 px-4 md:px-8">
-      <div className="max-w-5xl mx-auto">
+    <section aria-labelledby="roadmap-title" className="bg-[#283044] py-24 px-4 md:px-8">
+      <div className="max-w-6xl mx-auto">
         
         {/* Header de la Sección */}
         <div className="text-center mb-20">
@@ -16,7 +17,7 @@ export default function RoadmapSection() {
           >
             This isn't another program<br className="hidden md:block" /> where you do the work
           </h2>
-          <p className="text-navy-muted text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-navy-muted text-lg max-w-xl mx-auto leading-relaxed">
             Unlike most consultants, I don't just give you a plan and expect you to execute it.
             <br /><br />
             Instead, I deliver a complete <strong className="text-white font-semibold">done-for-you implementation</strong> broken down into <strong className="text-white font-semibold">4 simple steps</strong>.
@@ -24,60 +25,95 @@ export default function RoadmapSection() {
         </div>
 
         {/* Timeline */}
-        <div className="relative mb-20">
+        <div className="relative mb-12 py-4">
+          
           {/* Línea vertical central (Desktop) / Izquierda (Mobile) */}
-          <div className="absolute left-6 md:left-1/2 top-2 bottom-2 w-px bg-white/20 md:-translate-x-1/2 z-0"></div>
+          <div className="absolute left-6 md:left-1/2 top-8 bottom-8 w-px bg-white/20 md:-translate-x-1/2 z-0" />
 
-          <div className="space-y-4 md:space-y-0">
+          <div className="space-y-6 md:space-y-0 flex flex-col">
             {steps.map((step, index) => {
               const isEven = index % 2 === 0;
               
               return (
-                <div key={index} className={`relative flex flex-col md:flex-row items-center w-full ${!isEven ? 'md:justify-end' : ''}`}>
-                  {/* Conector horizontal para Mobile */}
-                  <div className="md:hidden absolute top-[2.625rem] left-6 w-8 h-px bg-white/20 z-0"></div>
-
-                  {/* Lado Izquierdo Desktop */}
-                  <div className={`w-full md:w-[calc(50%-3rem)] pl-14 md:pl-0 ${isEven ? 'md:pr-0 md:text-left' : 'hidden md:block'}`}>
-                    {isEven && (
-                      <article className="bg-card text-foreground rounded-xl p-8 shadow-lg relative z-10">
-                        {/* Conector horizontal Desktop (Derecha del card) */}
-                        <div className="hidden md:block absolute top-1/2 right-[-3rem] w-12 h-px bg-white/20 transform -translate-y-1/2"></div>
-                        
-                        <span className="text-primary text-sm font-bold tracking-wider uppercase">
-                          {step.week}
-                        </span>
-                        <h3 className="text-2xl font-bold mt-2 mb-3">
-                          {step.title}
-                        </h3>
-                        <p className="text-muted text-base leading-relaxed">
-                          {step.description}
-                        </p>
-                      </article>
-                    )}
+                <div 
+                  key={index} 
+                  // El margen negativo (-mt-10) entrelaza las tarjetas verticalmente en desktop
+                  className={`relative flex flex-col md:flex-row items-center w-full ${index > 0 ? 'md:-mt-10 lg:-mt-16' : ''}`}
+                >
+                  
+                  {/* Vista Mobile: Conector y Tarjeta */}
+                  <div className="md:hidden w-full relative pl-14">
+                    {/* Conector Mobile */}
+                    <div className="absolute top-[3.5rem] left-6 w-8 h-px bg-white/20 z-0" />
+                    
+                    {/* Punto Mobile */}
+                    <div className="absolute left-6 top-[3.5rem] w-3 h-3 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2 z-20" />
+                    
+                    <article className="bg-white rounded-[1.25rem] p-6 w-full shadow-lg relative z-10">
+                      <span className="text-[#2563EB] text-xs font-bold tracking-wider uppercase">
+                        {step.week}
+                      </span>
+                      <h3 className="text-[1.35rem] text-[#0F172A] font-bold mt-2 mb-2.5 leading-tight">
+                        {step.title}
+                      </h3>
+                      <p className="text-[#475569] text-sm leading-relaxed">
+                        {step.description}
+                      </p>
+                    </article>
                   </div>
 
-                  {/* Punto central del Timeline */}
-                  <div className="absolute left-6 md:left-1/2 top-[2.25rem] md:top-1/2 w-3.5 h-3.5 bg-white rounded-full transform -translate-x-1/2 md:-translate-y-1/2 z-20"></div>
+                  {/* Vista Desktop */}
+                  <div className="hidden md:flex items-center w-full relative">
+                    
+                    {/* Punto Central Desktop */}
+                    <div className="absolute left-1/2 top-1/2 w-3.5 h-3.5 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2 z-20" />
 
-                  {/* Lado Derecho Desktop */}
-                  <div className={`w-full md:w-[calc(50%-3rem)] pl-14 md:pl-0 ${!isEven ? 'md:pr-0 md:text-left' : 'hidden md:block'}`}>
-                    {!isEven && (
-                      <article className="bg-card text-foreground rounded-xl p-8 shadow-lg relative z-10 md:ml-auto">
-                        {/* Conector horizontal Desktop (Izquierda del card) */}
-                        <div className="hidden md:block absolute top-1/2 left-[-3rem] w-12 h-px bg-white/20 transform -translate-y-1/2"></div>
-                        
-                        <span className="text-primary text-sm font-bold tracking-wider uppercase">
-                          {step.week}
-                        </span>
-                        <h3 className="text-2xl font-bold mt-2 mb-3">
-                          {step.title}
-                        </h3>
-                        <p className="text-muted text-base leading-relaxed">
-                          {step.description}
-                        </p>
-                      </article>
-                    )}
+                    {/* Lado Izquierdo Desktop (Pares) */}
+                    <div className="w-[calc(50%-2.5rem)] pr-0 flex justify-end relative z-10">
+                      {isEven && (
+                        <>
+                          {/* Conector derecho (acortado a 2.5rem) */}
+                          <div className="absolute top-1/2 right-[-2.5rem] w-[2.5rem] h-px bg-white/20 transform -translate-y-1/2 z-0" />
+                          
+                          <article className="bg-white rounded-[1.25rem] p-8 w-full shadow-xl relative z-10">
+                            <span className="text-[#2563EB] text-xs font-bold tracking-[0.1em] uppercase">
+                              {step.week}
+                            </span>
+                            <h3 className="text-2xl text-[#0F172A] font-bold mt-2.5 mb-3 leading-snug">
+                              {step.title}
+                            </h3>
+                            <p className="text-[#475569] text-sm leading-relaxed">
+                              {step.description}
+                            </p>
+                          </article>
+                        </>
+                      )}
+                    </div>
+
+                    {/* Espaciador Central Reducido */}
+                    <div className="w-[5rem]" />
+
+                    {/* Lado Derecho Desktop (Impares) */}
+                    <div className="w-[calc(50%-2.5rem)] pl-0 relative z-10">
+                      {!isEven && (
+                        <>
+                          {/* Conector izquierdo (acortado a 2.5rem) */}
+                          <div className="absolute top-1/2 left-[-2.5rem] w-[2.5rem] h-px bg-white/20 transform -translate-y-1/2 z-0" />
+                          
+                          <article className="bg-white rounded-[1.25rem] p-8 w-full shadow-xl relative z-10">
+                            <span className="text-[#2563EB] text-xs font-bold tracking-[0.1em] uppercase">
+                              {step.week}
+                            </span>
+                            <h3 className="text-2xl text-[#0F172A] font-bold mt-2.5 mb-3 leading-snug">
+                              {step.title}
+                            </h3>
+                            <p className="text-[#475569] text-sm leading-relaxed">
+                              {step.description}
+                            </p>
+                          </article>
+                        </>
+                      )}
+                    </div>
                   </div>
 
                 </div>
@@ -87,26 +123,20 @@ export default function RoadmapSection() {
         </div>
 
         {/* Caja de Garantía y CTA */}
-        <div className="bg-card text-foreground rounded-2xl p-6 md:p-8 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-8 max-w-4xl mx-auto">
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-5">
+        <div className="bg-card text-foreground rounded-2xl p-6 md:p-8 shadow-xl flex flex-col md:flex-row items-start md:items-center max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-4 w-[70%]">
             <div className="bg-primary-soft text-primary p-3.5 rounded-xl shrink-0">
               <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
             </div>
-            <p className="text-base md:text-lg font-semibold max-w-lg leading-snug">
+            <p className="text-base md:text-lg font-semibold leading-snug">
               If, after 30 days, your team isn't independently running the system, I'll keep working with you at no extra cost until they are.
             </p>
           </div>
-          <a 
-            href="#booking" 
-            className="w-full md:w-auto shrink-0 bg-primary hover:bg-primary-hover text-primary-foreground font-semibold py-3.5 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
-          >
-            Book your free system audit
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </a>
+          <div className="w-[30%]">
+            <AuditButton />
+          </div>
         </div>
         
       </div>

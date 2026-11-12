@@ -116,7 +116,7 @@ export default function BookingSection() {
   };
 
   return (
-    <section className="bg-[#2563EB] py-24 px-4 md:px-8" id='booking'>
+    <section className="bg-primary py-24 px-4 md:px-8" id='booking'>
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
         
         {/* Columna Izquierda: Beneficios */}
@@ -138,11 +138,11 @@ export default function BookingSection() {
                 "I show you what it looks like running without you",
                 "You leave with a clear map of what to fix first"
               ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
+                <li key={i} className="flex items-center">
                   <svg className="w-6 h-6 text-white shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span className="text-white/90 leading-relaxed">{item}</span>
+                  <span className="text-white/90 leading-relaxed ml-2">{item}</span>
                 </li>
               ))}
             </ul>
@@ -164,7 +164,7 @@ export default function BookingSection() {
                 placeholder="Your full name"
                 aria-invalid={!!errors.fullName}
                 aria-describedby={errors.fullName ? "fullName-error" : undefined}
-                className={`w-full bg-background border rounded-lg px-4 py-3 text-foreground placeholder:text-muted focus:outline-none focus:ring-2 transition-colors ${errors.fullName ? 'border-danger focus:ring-danger/50' : 'border-border focus:ring-primary/50'}`}
+                className={`w-full bg-background border rounded-lg px-4 py-3 text-foreground placeholder:text-[#A3A3A3] focus:outline-none focus:ring-2 transition-colors ${errors.fullName ? 'border-danger focus:ring-danger/50' : 'border-border focus:ring-primary/50'}`}
               />
               {errors.fullName && <p id="fullName-error" className="text-danger text-xs font-semibold mt-1.5">{errors.fullName}</p>}
             </div>
@@ -180,25 +180,9 @@ export default function BookingSection() {
                 placeholder="you@email.com"
                 aria-invalid={!!errors.email}
                 aria-describedby={errors.email ? "email-error" : undefined}
-                className={`w-full bg-background border rounded-lg px-4 py-3 text-foreground placeholder:text-muted focus:outline-none focus:ring-2 transition-colors ${errors.email ? 'border-danger focus:ring-danger/50' : 'border-border focus:ring-primary/50'}`}
+                className={`w-full bg-background border rounded-lg px-4 py-3 text-foreground placeholder:text-[#A3A3A3] focus:outline-none focus:ring-2 transition-colors ${errors.email ? 'border-danger focus:ring-danger/50' : 'border-border focus:ring-primary/50'}`}
               />
               {errors.email && <p id="email-error" className="text-danger text-xs font-semibold mt-1.5">{errors.email}</p>}
-            </div>
-
-            {/* Input: Phone */}
-            <div>
-              <label htmlFor="phone" className="block text-sm font-semibold text-foreground mb-1.5">Phone number</label>
-              <input 
-                type="tel" 
-                id="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                placeholder="+1 555 000 0000"
-                aria-invalid={!!errors.phone}
-                aria-describedby={errors.phone ? "phone-error" : undefined}
-                className={`w-full bg-background border rounded-lg px-4 py-3 text-foreground placeholder:text-muted focus:outline-none focus:ring-2 transition-colors ${errors.phone ? 'border-danger focus:ring-danger/50' : 'border-border focus:ring-primary/50'}`}
-              />
-              {errors.phone && <p id="phone-error" className="text-danger text-xs font-semibold mt-1.5">{errors.phone}</p>}
             </div>
 
             {/* Select: Coaching niche */}
@@ -211,7 +195,7 @@ export default function BookingSection() {
                   onChange={handleChange}
                   aria-invalid={!!errors.niche}
                   aria-describedby={errors.niche ? "niche-error" : undefined}
-                  className={`w-full bg-background border rounded-lg pl-4 pr-10 py-3 text-foreground focus:outline-none focus:ring-2 appearance-none transition-colors ${errors.niche ? 'border-danger focus:ring-danger/50' : 'border-border focus:ring-primary/50'}`}
+                  className={`w-full bg-background border rounded-lg pl-4 pr-10 py-3 text-[#A3A3A3] focus:outline-none focus:ring-2 appearance-none transition-colors ${errors.niche ? 'border-danger focus:ring-danger/50' : 'border-border focus:ring-primary/50'}`}
                 >
                   <option value="" disabled hidden>Select your niche</option>
                   {BOOKING_FORM_OPTIONS.niches.map(option => (
@@ -228,6 +212,21 @@ export default function BookingSection() {
               {errors.niche && <p id="niche-error" className="text-danger text-xs font-semibold mt-1.5">{errors.niche}</p>}
             </div>
 
+            {/* Input: Handle or website */}
+            <div>
+              <label htmlFor="handle" className="block text-sm font-semibold text-foreground mb-1.5">Instagram handle or website</label>
+              <input 
+                type="text" 
+                id="handle"
+                value={formData.handle}
+                onChange={handleChange}
+                placeholder="@yourhandle or yoursite.com"
+                aria-invalid={!!errors.handle}
+                aria-describedby={errors.handle ? "handle-error" : undefined}
+                className={`w-full bg-background border rounded-lg px-4 py-3 text-foreground placeholder:text-[#A3A3A3] focus:outline-none focus:ring-2 transition-colors ${errors.handle ? 'border-danger focus:ring-danger/50' : 'border-border focus:ring-primary/50'}`}
+              />
+              {errors.handle && <p id="handle-error" className="text-danger text-xs font-semibold mt-1.5">{errors.handle}</p>}
+            </div>
             {/* Select: Monthly revenue */}
             <div>
               <label htmlFor="revenue" className="block text-sm font-semibold text-foreground mb-1.5">Monthly revenue</label>
@@ -238,7 +237,7 @@ export default function BookingSection() {
                   onChange={handleChange}
                   aria-invalid={!!errors.revenue}
                   aria-describedby={errors.revenue ? "revenue-error" : undefined}
-                  className={`w-full bg-background border rounded-lg pl-4 pr-10 py-3 text-foreground focus:outline-none focus:ring-2 appearance-none transition-colors ${errors.revenue ? 'border-danger focus:ring-danger/50' : 'border-border focus:ring-primary/50'}`}
+                  className={`w-full bg-background border rounded-lg pl-4 pr-10 py-3 text-[#A3A3A3] focus:outline-none focus:ring-2 appearance-none transition-colors ${errors.revenue ? 'border-danger focus:ring-danger/50' : 'border-border focus:ring-primary/50'}`}
                 >
                   <option value="" disabled hidden>Select a range</option>
                   {BOOKING_FORM_OPTIONS.revenues.map(option => (
@@ -265,7 +264,7 @@ export default function BookingSection() {
                   onChange={handleChange}
                   aria-invalid={!!errors.teamSize}
                   aria-describedby={errors.teamSize ? "teamSize-error" : undefined}
-                  className={`w-full bg-background border rounded-lg pl-4 pr-10 py-3 text-foreground focus:outline-none focus:ring-2 appearance-none transition-colors ${errors.teamSize ? 'border-danger focus:ring-danger/50' : 'border-border focus:ring-primary/50'}`}
+                  className={`w-full bg-background border rounded-lg pl-4 pr-10 py-3 text-[#A3A3A3] focus:outline-none focus:ring-2 appearance-none transition-colors ${errors.teamSize ? 'border-danger focus:ring-danger/50' : 'border-border focus:ring-primary/50'}`}
                 >
                   <option value="" disabled hidden>Select your team size</option>
                   {BOOKING_FORM_OPTIONS.teamSizes.map(option => (
@@ -280,22 +279,6 @@ export default function BookingSection() {
                 </div>
               </div>
               {errors.teamSize && <p id="teamSize-error" className="text-danger text-xs font-semibold mt-1.5">{errors.teamSize}</p>}
-            </div>
-
-            {/* Input: Handle or website */}
-            <div>
-              <label htmlFor="handle" className="block text-sm font-semibold text-foreground mb-1.5">Instagram handle or website</label>
-              <input 
-                type="text" 
-                id="handle"
-                value={formData.handle}
-                onChange={handleChange}
-                placeholder="@yourhandle or yoursite.com"
-                aria-invalid={!!errors.handle}
-                aria-describedby={errors.handle ? "handle-error" : undefined}
-                className={`w-full bg-background border rounded-lg px-4 py-3 text-foreground placeholder:text-muted focus:outline-none focus:ring-2 transition-colors ${errors.handle ? 'border-danger focus:ring-danger/50' : 'border-border focus:ring-primary/50'}`}
-              />
-              {errors.handle && <p id="handle-error" className="text-danger text-xs font-semibold mt-1.5">{errors.handle}</p>}
             </div>
 
             <button 

@@ -52,7 +52,7 @@ export const testimonials = [
     id: "rocco",
     name: "Rocco",
     role: "Fitness coach",
-    quote: "[Result quote from the video]",
+    quote: "“Since my team moved onto the new system, I don’t want to say I do nothing anymore, but I do very little compared to before.”",
     posterLabel: "PLACEHOLDER · Rocco testimonial video (30–60s)",
     videoSrc: "",
   },
@@ -60,7 +60,7 @@ export const testimonials = [
     id: "letizia",
     name: "Letizia",
     role: "Nutrition coach",
-    quote: "[Result quote from the video]",
+    quote: "“My team doesn’t come to me asking ‘where is this?’ anymore. They find everything by themselves, and that’s the best part.”",
     posterLabel: "PLACEHOLDER · Letizia testimonial video (30–60s)",
     videoSrc: "",
   },
@@ -68,7 +68,7 @@ export const testimonials = [
     id: "marco",
     name: "Marco",
     role: "Health coach",
-    quote: "[Result quote from the video]",
+    quote: "“With the entire program and all the videos in one place, my clients work through it more easily, and they’re even more motivated.”",
     posterLabel: "PLACEHOLDER · Marco testimonial video (30–60s)",
     videoSrc: "",
   },
@@ -151,15 +151,16 @@ export const BOOKING_FORM_OPTIONS = {
   ],
   revenues: [
     { value: "under10k", label: "Under €10k/mo" },
-    { value: "10k-50k", label: "€10k - €50k/mo" },
+    { value: "10k-25k", label: "€10k - €25k/mo" },
+    { value: "25k-50k", label: "€25k - €50k/mo" },
     { value: "50k-100k", label: "€50k - €100k/mo" },
     { value: "over100k", label: "Over €100k/mo" }
   ],
   teamSizes: [
     { value: "solo", label: "Just me" },
     { value: "2-5", label: "2 - 5 members" },
-    { value: "6-10", label: "6 - 10 members" },
-    { value: "11+", label: "11+ members" }
+    { value: "6-15", label: "6 - 15 members" },
+    { value: "16+", label: "16+ members" }
   ]
 };
 

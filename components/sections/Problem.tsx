@@ -8,11 +8,11 @@ const chaos = [
 
 export function Problem() {
   return (
-    <section id="problem" aria-labelledby="problem-title" className="bg-[#FAF8FF] px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
+    <section id="problem" aria-labelledby="problem-title" className="bg-background px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
       <div className="mx-auto grid max-w-[72rem] items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
         <div>
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-primary">The real problem</p>
-          <h2 id="problem-title" className="max-w-[16ch] text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-[2.6rem] lg:leading-[1.15]">
+          <h2 id="problem-title" className="text-4xl font-extrabold tracking-tight sm:text-4xl lg:text-[2.5rem] lg:leading-[1.15]">
             Your business grew, and so did the chaos behind it
           </h2>
           <div className="mt-6 space-y-4 text-[1.02rem] leading-relaxed text-muted">
@@ -36,17 +36,27 @@ export function Problem() {
           </div>
         </div>
 
-       <div className="rounded-[1.5rem] bg-card p-4 shadow-[0_10px_40px_rgba(15,23,42,0.06)] sm:p-5">
-        <ul className="space-y-3">
+       <div className="rounded-[1.5rem] bg-card lg:p-8 shadow-[0_10px_40px_rgba(15,23,42,0.06)] p-5">
+        <ul className="space-y-4">
           {chaos.map((item) => (
             <li
               key={item}
-              className="flex gap-2 rounded-2xl bg-[#FFDAD6]/20 px-4 py-3.5 text-sm leading-snug text-foreground sm:text-[0.95rem]"
+              // items-center garantiza que el ícono quede perfectamente centrado respecto al texto
+              className="flex items-center gap-4 rounded-2xl bg-danger-soft/20 px-5 py-4 text-[0.95rem] leading-snug text-foreground/90 sm:text-base"
             >
-              <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-[#BA1A1A] text-[1rem] font-bold text-[#BA1A1A]">
-                ×
-              </span>
-              {item}
+              {/* Uso de SVG para garantizar un renderizado de bordes y centrado perfectos en cualquier pantalla */}
+              <svg 
+                className="h-6 w-6 shrink-0 text-danger"
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 9.5l5 5M14.5 9.5l-5 5" />
+              </svg>
+              <span className="flex-1">{item}</span>
             </li>
           ))}
         </ul>
