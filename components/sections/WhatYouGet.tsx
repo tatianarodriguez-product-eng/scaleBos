@@ -1,18 +1,9 @@
 import Image from "next/image";
 import { hubs } from "@/lib/content";
-import { figmaHubIcons } from "@/components/ui/FigmaIcons";
 import { AuditButton } from "@/components/ui/AuditButton";
+import { HubCard } from "@/components/ui/HubCard";
 import screenshots from '@/public/images/system-screenshots.png';
 import MobileScreenshotsCarousel from "./MobileScreenshotsCarousel";
-
-function HubIcon({ index }: { index: number }) {
-  const Icon = figmaHubIcons[index];
-  return (
-    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary-soft text-primary">
-      <Icon className="h-6 w-6" />
-    </span>
-  );
-}
 
 export function WhatYouGet() {
   return (
@@ -36,13 +27,7 @@ export function WhatYouGet() {
         {/* 8 hubs: stacked on mobile, 2 rows of 4 on desktop */}
         <div className="mt-6 grid gap-3 lg:mt-14 lg:grid-cols-4 lg:gap-6">
           {hubs.map((hub, index) => (
-            <article key={hub.name} className="flex flex-col gap-4 rounded-2xl bg-card p-5 lg:p-6 lg:shadow-card">
-              <div className="flex items-center gap-3">
-                <HubIcon index={index} />
-                <h3 className="text-card-title lg:text-card-title-lg font-bold text-foreground">{hub.name}</h3>
-              </div>
-              <p className="text-card-body lg:text-card-body-lg text-muted lg:text-pretty">{hub.body}</p>
-            </article>
+            <HubCard key={hub.name} name={hub.name} body={hub.body} iconIndex={index} />
           ))}
         </div>
 
