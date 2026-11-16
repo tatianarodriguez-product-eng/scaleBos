@@ -17,12 +17,7 @@ export default function TestimonialsSection() {
             <article key={testi.id} className="flex flex-col overflow-hidden rounded-2xl bg-card shadow-subtle">
               <VideoFacade name={testi.name} cover={testi.cover} videoSrc={testi.videoSrc} shape={testi.videoShape} />
               <div className="flex flex-1 flex-col gap-2 p-5 lg:gap-3 lg:p-6">
-                <div className="flex items-center justify-between gap-2">
-                  <h3 className="text-xl leading-6 font-bold text-foreground lg:leading-7 lg:tracking-[-0.0125rem]">{testi.name}</h3>
-                  <span className="text-2xs leading-3 font-bold uppercase tracking-[0.0375rem] whitespace-nowrap text-primary lg:text-xs-plus lg:leading-4 lg:tracking-[0.055rem]">
-                    {testi.role}
-                  </span>
-                </div>
+                <h3 className="text-xl leading-6 font-bold text-foreground lg:leading-7 lg:tracking-[-0.0125rem]">{testi.business}</h3>
                 <p className="text-sm-plus leading-5.75 italic text-foreground lg:text-base lg:leading-6">{testi.quote}</p>
               </div>
             </article>
