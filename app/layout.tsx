@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { CookieBanner } from "@/components/ui/CookieBanner";
 import "./globals.css";
 
 export const ensureStatic = "navigation";
@@ -30,6 +31,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <JsonLd />
         {children}
+        <CookieBanner />
       </body>
     </html>
   );

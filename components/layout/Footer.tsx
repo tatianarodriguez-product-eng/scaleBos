@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/ui/Logo";
+import { CookieSettingsLink } from "@/components/ui/CookieBanner";
 
 // Figma: mobile = stacked with "Back to top" · desktop = one row, 100px tall
 export function Footer() {
@@ -17,6 +18,7 @@ export function Footer() {
           <Link href="/terms" className="flex h-12 items-center hover:text-foreground lg:h-auto">
             Terms of Service
           </Link>
+          <CookieSettingsLink className="flex h-12 items-center hover:text-foreground lg:h-auto" />
         </nav>
         <a
           href="#top"
