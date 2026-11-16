@@ -6,7 +6,6 @@ import { BOOKING_FORM_OPTIONS, BOOKING_ERROR_MESSAGES } from '@/lib/content';
 interface FormData {
   fullName: string;
   email: string;
-  phone: string;
   niche: string;
   revenue: string;
   teamSize: string;
@@ -19,7 +18,6 @@ export default function BookingSection() {
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
     email: '',
-    phone: '',
     niche: '',
     revenue: '',
     teamSize: '',
@@ -34,8 +32,6 @@ export default function BookingSection() {
   const regexPatterns = {
     fullName: /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+\s+[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/,
     email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-    // Actualizado: Permite el '+' inicial, dígitos, espacios y guiones (7 a 20 caracteres)
-    phone: /^\+?[0-9\s-]{7,20}$/,
     handle: /^\S{3,}$/
   };
 
@@ -50,9 +46,6 @@ export default function BookingSection() {
     }
     if (id === 'email' && !regexPatterns.email.test(value)) {
       return BOOKING_ERROR_MESSAGES.email.invalid;
-    }
-    if (id === 'phone' && !regexPatterns.phone.test(value)) {
-      return BOOKING_ERROR_MESSAGES.phone.invalid;
     }
     if (id === 'handle' && !regexPatterns.handle.test(value)) {
       return BOOKING_ERROR_MESSAGES.handle.invalid;
@@ -115,187 +108,126 @@ export default function BookingSection() {
     }
   };
 
+  const inputBase =
+    'h-12 w-full rounded-lg border bg-background px-3.5 text-base placeholder:text-subtle focus:outline-none focus:ring-2 transition-colors';
+  const stateCls = (key: keyof FormData) =>
+    errors[key] ? 'border-danger focus:ring-danger/40' : 'border-border-soft focus:ring-primary/40';
+  // Selects: grey while empty, dark once something is chosen
+  const selectCls = (key: keyof FormData) =>
+    `${inputBase} appearance-none pr-10 ${formData[key] ? 'text-foreground' : 'text-subtle'} ${stateCls(key)}`;
+  const label = 'mb-1.5 block text-sm leading-5 font-semibold tracking-[0.015rem] text-muted';
+  const errorText = 'mt-1.5 text-xs font-semibold text-danger';
+  const chevron = (
+    <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-muted">
+      <svg className="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+      </svg>
+    </span>
+  );
+
+  const textField = (id: 'fullName' | 'email' | 'handle', text: string, type: string, placeholder: string) => (
+    <div>
+      <label htmlFor={id} className={label}>{text}</label>
+      <input
+        type={type}
+        id={id}
+        value={formData[id]}
+        onChange={handleChange}
+        placeholder={placeholder}
+        aria-invalid={!!errors[id]}
+        aria-describedby={errors[id] ? `${id}-error` : undefined}
+        className={`${inputBase} text-foreground ${stateCls(id)}`}
+      />
+      {errors[id] && <p id={`${id}-error`} className={errorText}>{errors[id]}</p>}
+    </div>
+  );
+
+  const selectField = (
+    id: 'niche' | 'revenue' | 'teamSize',
+    text: string,
+    placeholder: string,
+    options: readonly { value: string; label: string }[],
+  ) => (
+    <div>
+      <label htmlFor={id} className={label}>{text}</label>
+      <div className="relative">
+        <select
+          id={id}
+          value={formData[id]}
+          onChange={handleChange}
+          aria-invalid={!!errors[id]}
+          aria-describedby={errors[id] ? `${id}-error` : undefined}
+          className={selectCls(id)}
+        >
+          <option value="" disabled hidden>{placeholder}</option>
+          {options.map(option => (
+            <option key={option.value} value={option.value}>{option.label}</option>
+          ))}
+        </select>
+        {chevron}
+      </div>
+      {errors[id] && <p id={`${id}-error`} className={errorText}>{errors[id]}</p>}
+    </div>
+  );
+
   return (
-    <section className="bg-primary py-24 px-4 md:px-8" id='booking'>
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
-        
-        {/* Columna Izquierda: Beneficios */}
-        <div className="text-white">
-          <span className="uppercase tracking-widest text-xs font-bold text-white/80">
-            What to do next
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-8 leading-tight">
-            Ready to scale past €100k/mo while actually working less?
+    <section className="bg-primary" id='booking'>
+      <div className="mx-auto w-full max-w-page px-5 lg:px-8 py-14 lg:py-24 grid gap-6 lg:grid-cols-2 lg:items-start lg:gap-10">
+
+        {/* Left: what the call is. lg:pt-10 = the form card padding, so "What to do next" lines up with "Full name" */}
+        <div className="text-white lg:pt-10">
+          <p className="text-tag lg:text-tag-lg font-bold uppercase text-primary-soft">What to do next</p>
+          <h2 className="text-h2 lg:text-h2-lg font-bold mt-3 text-white lg:mt-4">
+            Ready to scale past €100k/mo<br className="hidden xl:block" /> while actually working less?
           </h2>
-          
-          <div className="bg-black/10 rounded-2xl p-6 md:p-8 backdrop-blur-sm border border-white/10">
-            <h3 className="text-xl font-bold mb-6">
+
+          <div className="mt-6 flex flex-col gap-4 rounded-2xl bg-navy/45 p-5 shadow-call-box lg:p-6">
+            <h3 className="text-title leading-7.25 font-bold lg:text-2xl lg:leading-8 lg:tracking-[-0.0225rem]">
               Book a free 45-minute system audit.
             </h3>
-            <ul className="space-y-4">
+            <ul className="flex flex-col gap-4 lg:gap-3.5">
               {[
                 "You walk me through how you run your business today",
                 "I show you what it looks like running without you",
                 "You leave with a clear map of what to fix first"
               ].map((item, i) => (
-                <li key={i} className="flex items-center">
-                  <svg className="w-6 h-6 text-white shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <li key={i} className="flex gap-3">
+                  <svg className="mt-0.5 h-5.5 w-5.5 shrink-0 text-primary-light" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span className="text-white/90 leading-relaxed ml-2">{item}</span>
+                  <span className="text-base leading-6.25 text-white lg:text-lg lg:leading-7 lg:text-white/90">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
         </div>
 
-        {/* Columna Derecha: Formulario */}
-        <div className="bg-card rounded-2xl p-6 md:p-10 shadow-2xl">
-          <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-            
-            {/* Input: Full Name */}
-            <div>
-              <label htmlFor="fullName" className="block text-sm font-semibold text-foreground mb-1.5">Full name</label>
-              <input 
-                type="text" 
-                id="fullName" 
-                value={formData.fullName}
-                onChange={handleChange}
-                placeholder="Your full name"
-                aria-invalid={!!errors.fullName}
-                aria-describedby={errors.fullName ? "fullName-error" : undefined}
-                className={`w-full bg-background border rounded-lg px-4 py-3 text-foreground placeholder:text-[#A3A3A3] focus:outline-none focus:ring-2 transition-colors ${errors.fullName ? 'border-danger focus:ring-danger/50' : 'border-border focus:ring-primary/50'}`}
-              />
-              {errors.fullName && <p id="fullName-error" className="text-danger text-xs font-semibold mt-1.5">{errors.fullName}</p>}
+        {/* Right: the form, one field per row (Przemek 16 Nov: pairs looked odd) */}
+        <div className="rounded-2xl bg-card p-5 shadow-form lg:p-10">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5 lg:gap-6" noValidate>
+            <div className="flex flex-col gap-5 lg:gap-4">
+              {textField('fullName', 'Full name', 'text', 'Your full name')}
+              {textField('email', 'Email', 'email', 'you@email.com')}
+              {selectField('niche', 'Coaching niche', 'Select your niche', BOOKING_FORM_OPTIONS.niches)}
+              {selectField('revenue', 'Monthly revenue', 'Select a range', BOOKING_FORM_OPTIONS.revenues)}
+              {selectField('teamSize', 'Team size', 'Select your team size', BOOKING_FORM_OPTIONS.teamSizes)}
+              {textField('handle', 'Instagram handle or website', 'text', '@yourhandle or yoursite.com')}
             </div>
 
-            {/* Input: Email */}
-            <div>
-              <label htmlFor="email" className="block text-sm font-semibold text-foreground mb-1.5">Email</label>
-              <input 
-                type="email" 
-                id="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="you@email.com"
-                aria-invalid={!!errors.email}
-                aria-describedby={errors.email ? "email-error" : undefined}
-                className={`w-full bg-background border rounded-lg px-4 py-3 text-foreground placeholder:text-[#A3A3A3] focus:outline-none focus:ring-2 transition-colors ${errors.email ? 'border-danger focus:ring-danger/50' : 'border-border focus:ring-primary/50'}`}
-              />
-              {errors.email && <p id="email-error" className="text-danger text-xs font-semibold mt-1.5">{errors.email}</p>}
-            </div>
-
-            {/* Select: Coaching niche */}
-            <div>
-              <label htmlFor="niche" className="block text-sm font-semibold text-foreground mb-1.5">Coaching niche</label>
-              <div className="relative">
-                <select 
-                  id="niche"
-                  value={formData.niche}
-                  onChange={handleChange}
-                  aria-invalid={!!errors.niche}
-                  aria-describedby={errors.niche ? "niche-error" : undefined}
-                  className={`w-full bg-background border rounded-lg pl-4 pr-10 py-3 text-[#A3A3A3] focus:outline-none focus:ring-2 appearance-none transition-colors ${errors.niche ? 'border-danger focus:ring-danger/50' : 'border-border focus:ring-primary/50'}`}
-                >
-                  <option value="" disabled hidden>Select your niche</option>
-                  {BOOKING_FORM_OPTIONS.niches.map(option => (
-                    <option key={option.value} value={option.value}>{option.label}</option>
-                  ))}
-                </select>
-                {/* Flecha indicadora */}
-                <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-muted">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </div>
-              </div>
-              {errors.niche && <p id="niche-error" className="text-danger text-xs font-semibold mt-1.5">{errors.niche}</p>}
-            </div>
-
-            {/* Input: Handle or website */}
-            <div>
-              <label htmlFor="handle" className="block text-sm font-semibold text-foreground mb-1.5">Instagram handle or website</label>
-              <input 
-                type="text" 
-                id="handle"
-                value={formData.handle}
-                onChange={handleChange}
-                placeholder="@yourhandle or yoursite.com"
-                aria-invalid={!!errors.handle}
-                aria-describedby={errors.handle ? "handle-error" : undefined}
-                className={`w-full bg-background border rounded-lg px-4 py-3 text-foreground placeholder:text-[#A3A3A3] focus:outline-none focus:ring-2 transition-colors ${errors.handle ? 'border-danger focus:ring-danger/50' : 'border-border focus:ring-primary/50'}`}
-              />
-              {errors.handle && <p id="handle-error" className="text-danger text-xs font-semibold mt-1.5">{errors.handle}</p>}
-            </div>
-            {/* Select: Monthly revenue */}
-            <div>
-              <label htmlFor="revenue" className="block text-sm font-semibold text-foreground mb-1.5">Monthly revenue</label>
-              <div className="relative">
-                <select 
-                  id="revenue"
-                  value={formData.revenue}
-                  onChange={handleChange}
-                  aria-invalid={!!errors.revenue}
-                  aria-describedby={errors.revenue ? "revenue-error" : undefined}
-                  className={`w-full bg-background border rounded-lg pl-4 pr-10 py-3 text-[#A3A3A3] focus:outline-none focus:ring-2 appearance-none transition-colors ${errors.revenue ? 'border-danger focus:ring-danger/50' : 'border-border focus:ring-primary/50'}`}
-                >
-                  <option value="" disabled hidden>Select a range</option>
-                  {BOOKING_FORM_OPTIONS.revenues.map(option => (
-                    <option key={option.value} value={option.value}>{option.label}</option>
-                  ))}
-                </select>
-                {/* Flecha indicadora */}
-                <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-muted">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </div>
-              </div>
-              {errors.revenue && <p id="revenue-error" className="text-danger text-xs font-semibold mt-1.5">{errors.revenue}</p>}
-            </div>
-
-            {/* Select: Team size */}
-            <div>
-              <label htmlFor="teamSize" className="block text-sm font-semibold text-foreground mb-1.5">Team size</label>
-              <div className="relative">
-                <select 
-                  id="teamSize"
-                  value={formData.teamSize}
-                  onChange={handleChange}
-                  aria-invalid={!!errors.teamSize}
-                  aria-describedby={errors.teamSize ? "teamSize-error" : undefined}
-                  className={`w-full bg-background border rounded-lg pl-4 pr-10 py-3 text-[#A3A3A3] focus:outline-none focus:ring-2 appearance-none transition-colors ${errors.teamSize ? 'border-danger focus:ring-danger/50' : 'border-border focus:ring-primary/50'}`}
-                >
-                  <option value="" disabled hidden>Select your team size</option>
-                  {BOOKING_FORM_OPTIONS.teamSizes.map(option => (
-                    <option key={option.value} value={option.value}>{option.label}</option>
-                  ))}
-                </select>
-                {/* Flecha indicadora */}
-                <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-muted">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </div>
-              </div>
-              {errors.teamSize && <p id="teamSize-error" className="text-danger text-xs font-semibold mt-1.5">{errors.teamSize}</p>}
-            </div>
-
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               disabled={isSubmitting}
-              className="w-full bg-primary hover:bg-primary-hover text-primary-foreground font-semibold py-4 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
+              className="flex h-14 w-full items-center justify-center gap-2.5 rounded-lg bg-primary px-6 text-ui leading-5.5 font-semibold text-primary-foreground transition-colors hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-70 lg:h-16 lg:text-md lg:leading-6 lg:shadow-cta"
             >
               {isSubmitting ? 'Sending details...' : 'Book your free system audit'}
               {!isSubmitting && (
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                <svg className="h-4 w-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" />
                 </svg>
               )}
             </button>
           </form>
         </div>
-
       </div>
 
       {/* Modal Dialog */}
@@ -303,7 +235,7 @@ export default function BookingSection() {
         ref={dialogRef} 
         className="booking-dialog bg-card rounded-2xl shadow-2xl relative overflow-hidden"
       >
-        <div className="bg-card w-full h-[600px] flex flex-col items-center justify-center p-8 relative">
+        <div className="bg-card w-full h-150 flex flex-col items-center justify-center p-8 relative">
           
           <button 
             onClick={closeDialog}

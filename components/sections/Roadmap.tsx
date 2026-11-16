@@ -1,144 +1,71 @@
 import { steps } from "@/lib/content";
 import { AuditButton } from "../ui/AuditButton";
+import { FigmaGuarantee } from "../ui/FigmaIcons";
 
+// Figma desktop: 560px cards alternating left/right, each 118px lower than the last (79px overlap),
+// a centre line with dots and connectors. Mobile: line on the left built from one segment per step, cards stacked.
 export default function RoadmapSection() {
   return (
-    <section aria-labelledby="roadmap-title" className="bg-[#283044] py-24 px-4 md:px-8">
-      <div className="max-w-6xl mx-auto">
-        
-        {/* Header de la Sección */}
-        <div className="text-center mb-20">
-          <span className="text-navy-muted uppercase tracking-widest text-xs font-bold">
-            The Roadmap
-          </span>
-          <h2 
-            id="roadmap-title" 
-            className="text-3xl md:text-5xl font-bold text-white mt-4 mb-6 leading-tight"
-          >
-            This isn't another program<br className="hidden md:block" /> where you do the work
+    <section aria-labelledby="roadmap-title" className="bg-slate">
+      <div className="mx-auto w-full max-w-page px-5 lg:px-8 py-14 lg:py-24">
+        <div className="lg:mx-auto lg:max-w-192 lg:text-center">
+          <p className="text-tag lg:text-tag-lg font-bold uppercase text-primary-soft">The roadmap</p>
+          <h2 id="roadmap-title" className="text-h2 lg:text-h2-lg font-bold mt-3 text-white lg:mt-4">
+            This isn&apos;t another program<br className="hidden lg:block" /> where you do the work
           </h2>
-          <p className="text-navy-muted text-lg max-w-xl mx-auto leading-relaxed">
-            Unlike most consultants, I don't just give you a plan and expect you to execute it.
-            <br /><br />
-            Instead, I deliver a complete <strong className="text-white font-semibold">done-for-you implementation</strong> broken down into <strong className="text-white font-semibold">4 simple steps</strong>.
-          </p>
+          <div className="text-body lg:text-body-lg lg:[&_p]:text-balance mt-6 space-y-4 text-white/65 lg:mx-auto lg:max-w-147 [&_strong]:font-bold [&_strong]:text-white">
+            <p>Unlike most consultants, I don&apos;t just give you a plan and expect you to execute it.</p>
+            <p>
+              Instead, I deliver a complete <strong>done-for-you implementation</strong> broken down into{" "}
+              <strong>4 simple steps</strong>.
+            </p>
+          </div>
         </div>
 
         {/* Timeline */}
-        <div className="relative mb-12 py-4">
-          
-          {/* Línea vertical central (Desktop) / Izquierda (Mobile) */}
-          <div className="absolute left-6 md:left-1/2 top-8 bottom-8 w-px bg-white/20 md:-translate-x-1/2 z-0" />
+        <ol className="relative mt-6 flex flex-col gap-4 pl-11 lg:mt-14 lg:gap-0 lg:pl-0">
+          <span className="absolute hidden w-0.5 bg-white/40 lg:block lg:left-1/2 lg:top-21.25 lg:bottom-28 lg:-translate-x-1/2" aria-hidden="true" />
+          {steps.map((step, index) => {
+            const right = index % 2 === 1;
+            return (
+              <li
+                key={step.title}
+                className={`relative lg:w-[calc(50%-3rem)] ${right ? "lg:ml-auto" : ""} ${index > 0 ? "lg:-mt-19.75" : ""}`}
+              >
+                {/* mobile: line segment from this dot down to the next one, so it always connects whatever the card heights */}
+                {index < steps.length - 1 && (
+                  <span className="absolute -left-7.25 top-15 -bottom-19 w-0.5 bg-white/40 lg:hidden" aria-hidden="true" />
+                )}
+                {/* connector + dot */}
+                <span
+                  className={`absolute top-14.75 -left-7 h-0.5 w-7 bg-white/40 lg:top-21 lg:w-12 ${right ? "lg:-left-12" : "lg:left-auto lg:-right-12"}`}
+                  aria-hidden="true"
+                />
+                <span
+                  className={`absolute top-13.25 -left-8.75 h-3.5 w-3.5 rounded-full bg-white lg:top-19.5 ${right ? "lg:-left-13.75" : "lg:left-auto lg:-right-13.75"}`}
+                  aria-hidden="true"
+                />
+                <article className="flex flex-col gap-3 rounded-2xl bg-white p-5 lg:gap-4 lg:p-8 lg:shadow-card">
+                  <span className="text-xs leading-3.75 font-bold uppercase tracking-[0.045rem] text-primary lg:text-sm lg:leading-4.25 lg:tracking-[0.0525rem]">{step.week}</span>
+                  <h3 className="text-card-title lg:text-card-title-lg font-bold text-foreground">{step.title}</h3>
+                  <p className="text-card-body lg:text-card-body-lg text-muted lg:text-balance">{step.description}</p>
+                </article>
+              </li>
+            );
+          })}
+        </ol>
 
-          <div className="space-y-6 md:space-y-0 flex flex-col">
-            {steps.map((step, index) => {
-              const isEven = index % 2 === 0;
-              
-              return (
-                <div 
-                  key={index} 
-                  // El margen negativo (-mt-10) entrelaza las tarjetas verticalmente en desktop
-                  className={`relative flex flex-col md:flex-row items-center w-full ${index > 0 ? 'md:-mt-10 lg:-mt-16' : ''}`}
-                >
-                  
-                  {/* Vista Mobile: Conector y Tarjeta */}
-                  <div className="md:hidden w-full relative pl-14">
-                    {/* Conector Mobile */}
-                    <div className="absolute top-[3.5rem] left-6 w-8 h-px bg-white/20 z-0" />
-                    
-                    {/* Punto Mobile */}
-                    <div className="absolute left-6 top-[3.5rem] w-3 h-3 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2 z-20" />
-                    
-                    <article className="bg-white rounded-[1.25rem] p-6 w-full shadow-lg relative z-10">
-                      <span className="text-[#2563EB] text-xs font-bold tracking-wider uppercase">
-                        {step.week}
-                      </span>
-                      <h3 className="text-[1.35rem] text-[#0F172A] font-bold mt-2 mb-2.5 leading-tight">
-                        {step.title}
-                      </h3>
-                      <p className="text-[#475569] text-sm leading-relaxed">
-                        {step.description}
-                      </p>
-                    </article>
-                  </div>
-
-                  {/* Vista Desktop */}
-                  <div className="hidden md:flex items-center w-full relative">
-                    
-                    {/* Punto Central Desktop */}
-                    <div className="absolute left-1/2 top-1/2 w-3.5 h-3.5 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2 z-20" />
-
-                    {/* Lado Izquierdo Desktop (Pares) */}
-                    <div className="w-[calc(50%-2.5rem)] pr-0 flex justify-end relative z-10">
-                      {isEven && (
-                        <>
-                          {/* Conector derecho (acortado a 2.5rem) */}
-                          <div className="absolute top-1/2 right-[-2.5rem] w-[2.5rem] h-px bg-white/20 transform -translate-y-1/2 z-0" />
-                          
-                          <article className="bg-white rounded-[1.25rem] p-8 w-full shadow-xl relative z-10">
-                            <span className="text-[#2563EB] text-xs font-bold tracking-[0.1em] uppercase">
-                              {step.week}
-                            </span>
-                            <h3 className="text-2xl text-[#0F172A] font-bold mt-2.5 mb-3 leading-snug">
-                              {step.title}
-                            </h3>
-                            <p className="text-[#475569] text-sm leading-relaxed">
-                              {step.description}
-                            </p>
-                          </article>
-                        </>
-                      )}
-                    </div>
-
-                    {/* Espaciador Central Reducido */}
-                    <div className="w-[5rem]" />
-
-                    {/* Lado Derecho Desktop (Impares) */}
-                    <div className="w-[calc(50%-2.5rem)] pl-0 relative z-10">
-                      {!isEven && (
-                        <>
-                          {/* Conector izquierdo (acortado a 2.5rem) */}
-                          <div className="absolute top-1/2 left-[-2.5rem] w-[2.5rem] h-px bg-white/20 transform -translate-y-1/2 z-0" />
-                          
-                          <article className="bg-white rounded-[1.25rem] p-8 w-full shadow-xl relative z-10">
-                            <span className="text-[#2563EB] text-xs font-bold tracking-[0.1em] uppercase">
-                              {step.week}
-                            </span>
-                            <h3 className="text-2xl text-[#0F172A] font-bold mt-2.5 mb-3 leading-snug">
-                              {step.title}
-                            </h3>
-                            <p className="text-[#475569] text-sm leading-relaxed">
-                              {step.description}
-                            </p>
-                          </article>
-                        </>
-                      )}
-                    </div>
-                  </div>
-
-                </div>
-              );
-            })}
-          </div>
+        {/* Guarantee */}
+        <div className="mt-6 flex flex-col gap-4 rounded-2xl bg-card p-5 lg:mt-14 lg:flex-row lg:items-center lg:gap-6 lg:p-8 lg:shadow-card">
+          <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary-soft text-primary lg:h-16 lg:w-16 lg:rounded-2xl lg:shadow-icon">
+            <FigmaGuarantee className="h-7 w-7 lg:h-8 lg:w-8.25" />
+          </span>
+          <p className="text-base leading-[1.55] text-muted lg:max-w-174.5 lg:flex-1 lg:text-balance lg:text-xl lg:leading-7 lg:tracking-[-0.0125rem]">
+            If, after 30 days, your team isn&apos;t independently running the system,<br /> I&apos;ll keep working with you{" "}
+            <strong className="font-bold text-foreground">at no extra cost until they are.</strong>
+          </p>
+          <AuditButton className="lg:ml-auto lg:shrink-0" />
         </div>
-
-        {/* Caja de Garantía y CTA */}
-        <div className="bg-card text-foreground rounded-2xl p-6 md:p-8 shadow-xl flex flex-col md:flex-row items-start md:items-center max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-4 w-[70%]">
-            <div className="bg-primary-soft text-primary p-3.5 rounded-xl shrink-0">
-              <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-            </div>
-            <p className="text-base md:text-lg font-semibold leading-snug">
-              If, after 30 days, your team isn't independently running the system, I'll keep working with you at no extra cost until they are.
-            </p>
-          </div>
-          <div className="w-[30%]">
-            <AuditButton />
-          </div>
-        </div>
-        
       </div>
     </section>
   );

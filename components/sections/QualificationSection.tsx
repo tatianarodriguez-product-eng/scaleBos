@@ -1,94 +1,70 @@
 import { idealFit, notFit } from "@/lib/content";
 import { AuditButton } from "../ui/AuditButton";
 
+function FitList({ items, fit }: { items: readonly string[]; fit: boolean }) {
+  return (
+    <ul className="flex flex-col gap-5 lg:gap-4">
+      {items.map((item) => (
+        <li key={item} className="flex gap-3">
+          <span className="flex w-5 shrink-0 justify-center pt-0.75 lg:pt-1">
+            {fit ? (
+              <svg className="h-4.25 w-4.25 text-success" viewBox="0 0 17 17" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="8.5" cy="8.5" r="7.6" />
+                <path d="M5.3 8.7l2.2 2.2 4.2-4.5" />
+              </svg>
+            ) : (
+              <svg className="mt-0.5 h-3 w-3 text-danger" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                <path d="M1.5 1.5l9 9M10.5 1.5l-9 9" />
+              </svg>
+            )}
+          </span>
+          <span className="text-body lg:text-card-body-lg leading-6.25 lg:leading-6.5 text-foreground lg:[text-wrap:wrap]">
+            {item.split("\n").map((part, j) => (
+              <span key={j}>
+                {j > 0 && <><span className="lg:hidden"> </span><br className="hidden lg:block" /></>}
+                {part}
+              </span>
+            ))}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default function QualificationSection() {
   return (
-    <section 
-      aria-labelledby="qualification-title" 
-      className="py-24 px-4 md:px-8 bg-background"
-    >
-      <div className="max-w-5xl mx-auto">
-        
-        {/* Encabezado */}
-        <div className="text-center mb-16">
-          <span className="text-primary uppercase tracking-widest text-xs font-bold">
-            Is this for you?
-          </span>
-          <h2 
-            id="qualification-title" 
-            className="text-3xl md:text-5xl font-bold text-foreground mt-4 mb-8 leading-tight"
-          >
-            I only work with<br className="hidden md:block" /> one kind of coaching business
-          </h2>
-          <p className="text-muted text-lg max-w-2xl mx-auto leading-relaxed">
-            I build <strong className="text-foreground font-semibold">only 2 installs per month</strong>, <br className="hidden md:block" /> so I choose carefully who I work with.
-            <br /><br />
-            When the month's slots are taken, the next start date moves.
+    <section aria-labelledby="qualification-title" className="mx-auto w-full max-w-page px-5 lg:px-8 py-14 lg:py-24">
+      <div className="lg:mx-auto lg:max-w-192 lg:text-center">
+        <p className="text-tag lg:text-tag-lg font-bold uppercase text-primary">Is this for you?</p>
+        <h2 id="qualification-title" className="text-h2 lg:text-h2-lg font-bold text-foreground mt-3 lg:mt-4">
+          I only work with
+          <br /> one kind of coaching business
+        </h2>
+        <div className="text-body lg:text-body-lg text-muted [&_strong]:font-semibold [&_strong]:text-foreground lg:[&_p]:text-balance mt-6 space-y-4 lg:mx-auto lg:max-w-147 lg:leading-7">
+          <p>
+            I build <strong>only 2 installs per month</strong>, so I choose carefully who I work with.
           </p>
+          <p>When the month&apos;s slots are taken, the next start date moves.</p>
         </div>
+      </div>
 
-        {/* Contenedor de Tarjetas */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-16">
-          
-          {/* Tarjeta: This is you */}
-          <article className="bg-card rounded-2xl p-8 md:p-10 shadow-lg border border-border/50">
-            <h3 className="text-2xl font-bold text-foreground mb-2">
-              This is you
-            </h3>
-            <p className="text-muted mb-8">
-              You're the right fit if...
-            </p>
-            <ul className="space-y-6">
-              {idealFit.map((item, index) => (
-                <li key={index} className="flex items-start gap-4">
-                  <svg 
-                    className="w-6 h-6 text-success shrink-0 mt-0.5" 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor" 
-                    aria-hidden="true"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span className="text-foreground/90 leading-relaxed">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </article>
+      <div className="mt-6 flex flex-col gap-6 lg:mt-14 lg:grid lg:grid-cols-2 lg:gap-10">
+        <article className="flex flex-col gap-4 rounded-2xl bg-card p-5 shadow-panel-lg lg:gap-0 lg:p-10">
+          <h3 className="text-card-title lg:text-card-title-lg font-bold text-foreground">This is you</h3>
+          <p className="text-card-body lg:text-card-body-lg text-muted lg:text-balance lg:mt-2 lg:mb-6">You&apos;re the right fit if...</p>
+          <FitList items={idealFit} fit />
+        </article>
 
-          {/* Tarjeta: This isn't for you */}
-          <article className="bg-navy-muted rounded-2xl p-8 md:p-10">
-            <h3 className="text-2xl font-bold text-foreground mb-2">
-              This isn't for you
-            </h3>
-            <p className="text-muted mb-8">
-              Skip this if...
-            </p>
-            <ul className="space-y-6">
-              {notFit.map((item, index) => (
-                <li key={index} className="flex items-start gap-4">
-                  <svg 
-                    className="w-5 h-5 text-danger shrink-0 mt-1" 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor" 
-                    aria-hidden="true"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                  <span className="text-foreground/80 leading-relaxed">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </article>
+        <article className="flex flex-col gap-4 rounded-2xl bg-navy-muted p-5 lg:gap-0 lg:p-10">
+          <h3 className="text-card-title lg:text-card-title-lg font-bold text-foreground">This isn&apos;t for you</h3>
+          <p className="text-card-body lg:text-card-body-lg text-muted lg:text-balance lg:mt-2 lg:mb-6">Skip this if...</p>
+          <FitList items={notFit} fit={false} />
+        </article>
+      </div>
 
-        </div>
-
-        {/* CTA */}
-        <div className="flex justify-center">
-          <AuditButton />
-        </div>
-
+      <div className="mt-6 flex justify-center lg:mt-14">
+        <AuditButton />
       </div>
     </section>
   );

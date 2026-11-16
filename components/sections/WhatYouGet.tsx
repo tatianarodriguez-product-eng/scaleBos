@@ -1,85 +1,64 @@
 import Image from "next/image";
 import { hubs } from "@/lib/content";
-import { hubIcons } from "@/components/ui/Icons";
+import { figmaHubIcons } from "@/components/ui/FigmaIcons";
 import { AuditButton } from "@/components/ui/AuditButton";
 import screenshots from '@/public/images/system-screenshots.png';
 import MobileScreenshotsCarousel from "./MobileScreenshotsCarousel";
 
-export function WhatYouGet() {
-  const cards = hubs.slice(0, 6);
-  const team = hubs[6];
-  const TeamIcon = hubIcons[6];
-
+function HubIcon({ index }: { index: number }) {
+  const Icon = figmaHubIcons[index];
   return (
-    <section id="hubs" aria-labelledby="hubs-title" className="bg-navy-muted px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
-      <div className="mx-auto max-w-[72rem]">
-        
-        {/* Textos de la sección */}
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-primary">What you get</p>
-          <h2 id="hubs-title" className="text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-[2.6rem] lg:leading-[1.15]">
-            An operating system for high-ticket coaching businesses
+    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary-soft text-primary">
+      <Icon className="h-6 w-6" />
+    </span>
+  );
+}
+
+export function WhatYouGet() {
+  return (
+    <section id="hubs" aria-labelledby="hubs-title" className="bg-navy-muted">
+      <div className="mx-auto w-full max-w-page px-5 lg:px-8 py-14 lg:py-24">
+        <div className="lg:mx-auto lg:max-w-192 lg:text-center">
+          <p className="text-tag lg:text-tag-lg font-bold uppercase text-primary">What you get</p>
+          <h2 id="hubs-title" className="text-h2 lg:text-h2-lg font-bold text-foreground mt-3 lg:mt-4">
+            An operating system for<br className="hidden lg:block" /> high-ticket coaching businesses
           </h2>
-          <p className="mt-5 text-base leading-relaxed text-muted sm:text-lg">
-            I install a <strong className="font-semibold text-foreground">custom-built operating system</strong> so you can scale
-            past €100k/mo while actually working less.
-          </p>
-          <p className="mt-3 text-base text-muted">
-            It&apos;s built around <strong className="font-semibold text-foreground">7 hubs where everything is connected:</strong>
-          </p>
+          <div className="text-body lg:text-body-lg text-muted [&_strong]:font-semibold [&_strong]:text-foreground lg:[&_p]:text-balance mt-6 space-y-4 lg:mx-auto lg:max-w-147">
+            <p>
+              I install a <strong>custom-built operating system</strong> so you can scale past €100k/mo while actually working less.
+            </p>
+            <p>
+              It&apos;s built around <strong>8 hubs where everything is connected</strong>:
+            </p>
+          </div>
         </div>
 
-        {/* Grid de los 6 Hubs principales */}
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {cards.map((hub, index) => {
-            const Icon = hubIcons[index];
-            return (
-              <article key={hub.name} className="rounded-[1.35rem] bg-card p-6 shadow-[0_8px_30px_rgba(15,23,42,0.04)]">
-                <div className="mb-4 flex items-center gap-3">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#DBE1FF] text-primary">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <h3 className="text-lg font-bold">{hub.name}</h3>
-                </div>
-                <p className="text-sm leading-relaxed text-muted">{hub.body}</p>
-              </article>
-            );
-          })}
+        {/* 8 hubs: stacked on mobile, 2 rows of 4 on desktop */}
+        <div className="mt-6 grid gap-3 lg:mt-14 lg:grid-cols-4 lg:gap-6">
+          {hubs.map((hub, index) => (
+            <article key={hub.name} className="flex flex-col gap-4 rounded-2xl bg-card p-5 lg:p-6 lg:shadow-card">
+              <div className="flex items-center gap-3">
+                <HubIcon index={index} />
+                <h3 className="text-card-title lg:text-card-title-lg font-bold text-foreground">{hub.name}</h3>
+              </div>
+              <p className="text-card-body lg:text-card-body-lg text-muted lg:text-pretty">{hub.body}</p>
+            </article>
+          ))}
         </div>
 
-        {/* Hub del Team */}
-        <article className="mt-4 flex flex-col gap-3 rounded-[1.35rem] bg-card p-6 shadow-[0_8px_30px_rgba(15,23,42,0.04)] sm:flex-row sm:items-center">
-          <div className="flex items-center gap-3">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary-soft text-primary">
-              <TeamIcon className="h-5 w-5" />
-            </span>
-            <h3 className="text-lg font-bold">{team.name}</h3>
+        {/* System screenshots: fan on desktop, as big as the screen height allows; the button follows right below; swipe carousel on mobile */}
+        <div className="mt-6 lg:mt-14">
+          <div className="hidden lg:mx-auto lg:block lg:w-[min(100%,calc((100vh-3rem)*1.384))]">
+            <Image src={screenshots} alt="ScaleBos system screenshots" className="h-auto w-full" sizes="1216px" />
           </div>
-          <p className="text-sm leading-relaxed text-muted sm:pl-2">{team.body}</p>
-        </article>
-
-        {/* SECCIÓN DE PANTALLAZOS */}
-        <div className="mt-12 md:mt-16 w-full">
-          {/* Desktop: Se muestra el abanico completo estático */}
-          <div className="hidden md:block">
-            <Image 
-              src={screenshots} 
-              alt='scaleBos system screenshots' 
-              className="w-full h-auto object-contain"
-            />
-          </div>
-
-          {/* Mobile: Se oculta la imagen original y se muestra el carrusel */}
-          <div className="block md:hidden">
+          <div className="lg:hidden">
             <MobileScreenshotsCarousel />
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="mt-10 flex justify-center">
+        <div className="mt-6 flex justify-center lg:mt-10">
           <AuditButton />
         </div>
-
       </div>
     </section>
   );

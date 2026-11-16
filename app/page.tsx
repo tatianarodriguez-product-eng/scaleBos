@@ -18,7 +18,6 @@ export default function Home() {
       <Header />
       <main className="flex-1 flex flex-col">
         <Hero />
-      </main>
       <Problem/>
       <HiddenCost/>
       <HowToFix/>
@@ -29,6 +28,7 @@ export default function Home() {
       <AboutSection/>
       <BookingSection/>
       <FaqSection/>
+      </main>
       <Footer/>
     </>
   );

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: "ScaleBos — Scale past €100k/mo without operational chaos",
   description:
     "I install a done-for-you operating system so fitness, nutrition, and health coaches can run their entire business from one organized place.",
-  metadataBase: new URL("https://scalebos.com"),
+  metadataBase: new URL("https://scalebos.net"),
 };
 
 export default function RootLayout({
@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${inter.className} h-full antialiased`}>
+    <html lang="en" id="top" className={`${inter.variable} ${inter.className} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <JsonLd />
         {children}

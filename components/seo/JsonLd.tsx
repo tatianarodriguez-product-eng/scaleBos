@@ -1,13 +1,12 @@
-import { faqs } from "@/lib/content";
-
+// FAQ structured data is emitted by the FAQ section itself (components/sections/Faq.tsx), from the same answers visitors see.
 const graph = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": ["Organization", "ProfessionalService"],
-      "@id": "https://scalebos.com/#organization",
+      "@id": "https://scalebos.net/#organization",
       name: "ScaleBos",
-      url: "https://scalebos.com",
+      url: "https://scalebos.net",
       description:
         "Done-for-you operating systems for fitness, nutrition, and health coaching businesses.",
       founder: {
@@ -16,28 +15,16 @@ const graph = {
         jobTitle: "Founder",
       },
       areaServed: "EU",
-      makesOffer: { "@id": "https://scalebos.com/#offer" },
+      makesOffer: { "@id": "https://scalebos.net/#offer" },
     },
     {
       "@type": "Offer",
-      "@id": "https://scalebos.com/#offer",
+      "@id": "https://scalebos.net/#offer",
       name: "Done-for-you operating system",
       description:
         "A custom-built operating system so high-ticket coaching businesses can scale past €100k/mo while actually working less.",
       category: "Business consulting",
-      offeredBy: { "@id": "https://scalebos.com/#organization" },
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://scalebos.com/#faq",
-      mainEntity: faqs.map((item) => ({
-        "@type": "Question",
-        name: item.question,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item.answer,
-        },
-      })),
+      offeredBy: { "@id": "https://scalebos.net/#organization" },
     },
   ],
 };

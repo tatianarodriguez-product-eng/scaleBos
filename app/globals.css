@@ -4,35 +4,144 @@
   --background: #FAF8FF;
   --foreground: #131B2E;
   --muted: #434655;
+  --subtle: #737586;
   --card: #ffffff;
   --border: #e8eaf3;
+  --border-soft: #E2E4EF;
   --primary: #2563EB;
   --primary-hover: #1f56e8;
+  --primary-deep: #1D4ED8;
+  --primary-light: #60A5FA;
   --primary-foreground: #ffffff;
   --primary-soft: #DBE1FF;
+  --indigo-soft: #C7D2FE;
   --navy: #131B2E;
   --navy-muted: #F2F3FF;
+  --slate: #283044;
   --danger: #BA1A1A;
   --danger-soft: #FFDAD6;
+  --danger-faint: #FFF5F4;
   --success: #16a34a;
+
+  /* Layout (Figma: 1280px frame = 1216px content + 32px sides; mobile 390px frame = 20px sides) */
+  --page-width: 80rem;
+
+  /* Type scale (Figma). Mobile and desktop sizes are separate tokens;
+     components switch between them with Tailwind's lg: prefix. */
+  --fs-tag: 0.75rem;
+  --fs-tag-lg: 0.8125rem;
+  --fs-h2: 1.875rem;
+  --fs-h2-lg: 2.25rem;
+  --fs-body: 1rem;
+  --fs-body-lg: 1.125rem;
+  --fs-card-title: 1.3125rem;
+  --fs-card-title-lg: 1.5rem;
+  --fs-card-body: 1rem;
+  --fs-card-body-lg: 1.0625rem;
+  --fs-2xs: 0.625rem;
+  --fs-xs-plus: 0.6875rem;
+  --fs-caption: 0.8125rem;
+  --fs-sm-plus: 0.90625rem;
+  --fs-ui: 0.9375rem;
+  --fs-md: 1.0625rem;
+  --fs-xl-plus: 1.3125rem;
+  --fs-title: 1.375rem;
+  --fs-stat: 1.625rem;
+  --fs-statement: 1.75rem;
+
+  /* Shadows */
+  --elevation-subtle: 0 0.0625rem 0.125rem #0000000D;
+  --elevation-card: 0 0.25rem 0.75rem #0F1E360A;
+  --elevation-panel: 0 0.625rem 1.5625rem #0F1E360F;
+  --elevation-panel-lg: 0 0.75rem 1.875rem #0F1E3614;
+  --elevation-photo: 0 0.75rem 2rem #2563EB24;
+  --elevation-photo-lg: 0 1rem 3rem #2563EB2E, 0 0.25rem 0.75rem #0F1E3614;
+  --elevation-cta: 0 0.625rem 1.5625rem #2563EB59;
+  --elevation-icon: 0 0.25rem 0.375rem #0000001A, 0 0.625rem 0.9375rem #0000001A;
+  --elevation-cost-card: 0 0.9375rem 1.875rem #001E5A2E;
+  --elevation-header: 0 0.0625rem 0.5rem #0F1E360F;
+  --elevation-footer: 0 -0.0625rem 0.375rem #0F1E3608;
+  --elevation-call-box: 0 1.25rem 2.5rem #0F172A40;
+  --elevation-form: 0 1.5625rem 3.125rem #00000040;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
   --color-card: var(--card);
   --color-border: var(--border);
+  --color-border-soft: var(--border-soft);
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
+  --color-primary-deep: var(--primary-deep);
+  --color-primary-light: var(--primary-light);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary-soft: var(--primary-soft);
+  --color-indigo-soft: var(--indigo-soft);
   --color-navy: var(--navy);
   --color-navy-muted: var(--navy-muted);
+  --color-slate: var(--slate);
   --color-danger: var(--danger);
   --color-danger-soft: var(--danger-soft);
+  --color-danger-faint: var(--danger-faint);
   --color-success: var(--success);
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+
+  --container-page: var(--page-width);
+
+  --text-tag: var(--fs-tag);
+  --text-tag--line-height: 1.125rem;
+  --text-tag--letter-spacing: 0.06rem;
+  --text-tag-lg: var(--fs-tag-lg);
+  --text-tag-lg--line-height: 1.125rem;
+  --text-tag-lg--letter-spacing: 0.08125rem;
+  --text-h2: var(--fs-h2);
+  --text-h2--line-height: 2.25rem;
+  --text-h2--letter-spacing: -0.05rem;
+  --text-h2-lg: var(--fs-h2-lg);
+  --text-h2-lg--line-height: 2.75rem;
+  --text-h2-lg--letter-spacing: -0.05625rem;
+  --text-body: var(--fs-body);
+  --text-body--line-height: 1.55;
+  --text-body-lg: var(--fs-body-lg);
+  --text-body-lg--line-height: 1.828125rem;
+  --text-body-lg--letter-spacing: -0.005625rem;
+  --text-card-title: var(--fs-card-title);
+  --text-card-title--line-height: 1.3;
+  --text-card-title--letter-spacing: -0.01875rem;
+  --text-card-title-lg: var(--fs-card-title-lg);
+  --text-card-title-lg--line-height: 2rem;
+  --text-card-title-lg--letter-spacing: -0.0225rem;
+  --text-card-body: var(--fs-card-body);
+  --text-card-body--line-height: 1.55;
+  --text-card-body-lg: var(--fs-card-body-lg);
+  --text-card-body-lg--line-height: 1.625rem;
+  --text-2xs: var(--fs-2xs);
+  --text-xs-plus: var(--fs-xs-plus);
+  --text-caption: var(--fs-caption);
+  --text-sm-plus: var(--fs-sm-plus);
+  --text-ui: var(--fs-ui);
+  --text-md: var(--fs-md);
+  --text-xl-plus: var(--fs-xl-plus);
+  --text-title: var(--fs-title);
+  --text-stat: var(--fs-stat);
+  --text-statement: var(--fs-statement);
+
+  --shadow-subtle: var(--elevation-subtle);
+  --shadow-card: var(--elevation-card);
+  --shadow-panel: var(--elevation-panel);
+  --shadow-panel-lg: var(--elevation-panel-lg);
+  --shadow-photo: var(--elevation-photo);
+  --shadow-photo-lg: var(--elevation-photo-lg);
+  --shadow-cta: var(--elevation-cta);
+  --shadow-icon: var(--elevation-icon);
+  --shadow-cost-card: var(--elevation-cost-card);
+  --shadow-header: var(--elevation-header);
+  --shadow-footer: var(--elevation-footer);
+  --shadow-call-box: var(--elevation-call-box);
+  --shadow-form: var(--elevation-form);
 }
 
 html {
@@ -68,5 +177,33 @@ dialog.booking-dialog {
 }
 
 dialog.booking-dialog::backdrop {
-  background: rgb(15 23 42 / 0.55);
+  background: #0F172A8C;
+}
+
+.video-dialog {
+  border: 0;
+}
+
+.video-dialog::backdrop {
+  background: #131B2ED9;
+}
+
+.text-gradient-blue {
+  background: linear-gradient(90deg, #1d4ed8 0%, #2563eb 45%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-steel {
+  background: linear-gradient(90deg, #475569 0%, #64748b 45%, #7c8ba1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* italic glyphs overhang their box; keep the last letter inside the gradient */
+  padding-right: 0.08em;
+}
+
+.photo-glow {
+  background: radial-gradient(closest-side, #2563EB1A, #2563EB0D 50%, #2563EB00);
 }
