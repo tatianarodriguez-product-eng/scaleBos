@@ -1,66 +1,47 @@
-const chaos = [
-  "Client sessions get missed, and nobody notices until the client messages you",
-  "Documents are scattered everywhere, and no one can find anything",
-  "Nobody knows which leads have been followed up on and which haven't",
-  "You spend your evenings getting new team members up to speed",
-  "You're never sure who's already paid this month and who hasn't",
-];
+import { CrossCircleIcon } from '@/components/ui/UiIcons';
+import { chaosItems } from '@/lib/content';
 
 export function Problem() {
   return (
-    <section id="problem" aria-labelledby="problem-title" className="bg-background px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
-      <div className="mx-auto grid max-w-[72rem] items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+    <section id="problem" aria-labelledby="problem-title" className="mx-auto w-full max-w-page px-5 md:px-8 pt-14 pb-14 lg:pt-18 lg:pb-24">
+      <p className="text-tag font-bold uppercase text-primary">The real problem</p>
+      <div className="mt-3 lg:mt-4 lg:grid lg:grid-cols-2 lg:items-start lg:gap-10">
         <div>
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-primary">The real problem</p>
-          <h2 id="problem-title" className="text-4xl font-extrabold tracking-tight sm:text-4xl lg:text-[2.5rem] lg:leading-[1.15]">
-            Your business grew, and so did the chaos behind it
+          <h2 id="problem-title" className="text-h2 lg:text-h2-lg font-bold text-foreground">
+            Your business grew,<br className="hidden lg:block" /> and so did the chaos behind it
           </h2>
-          <div className="mt-6 space-y-4 text-[1.02rem] leading-relaxed text-muted">
+          <div className="text-body lg:text-body-lg text-muted [&_strong]:font-semibold [&_strong]:text-foreground lg:[&_p]:text-balance mt-6 space-y-4">
             <p>
-              At the beginning, it was <strong className="font-semibold text-foreground">just you</strong>.
-            </p>
-            <p>You coached every client, scheduled every sales call, and edited every reel yourself.</p>
-            <p>
-              After months of grinding, <strong className="font-semibold text-foreground">the business took off</strong>, and your
-              calendar filled up.
+              At the beginning, it was <strong>just you</strong>.
             </p>
             <p>
-              So you <strong className="font-semibold text-foreground">hired your first coach, setter, and editor</strong>, hoping
-              you&apos;d finally get your time back.
+              You coached every client, scheduled every sales call,<br className="hidden lg:block" /> and edited every reel yourself.
             </p>
             <p>
-              But the more clients you signed and the bigger your team got,{" "}
-              <strong className="font-semibold text-foreground">the messier everything became</strong>.
+              After months of grinding, <strong>the business took off</strong>,<br className="hidden lg:block" /> and your calendar filled up.
+            </p>
+            <p>
+              So you <strong>hired your first coach, setter, and editor</strong>, hoping<br className="hidden lg:block" /> you&apos;d
+              finally get your time back.
+            </p>
+            <p>
+              But the more clients you signed and the bigger your team got,<br className="hidden lg:block" />{" "}
+              <strong>the messier everything became</strong>.
             </p>
             <p>And now, running your business looks like this:</p>
           </div>
         </div>
 
-       <div className="rounded-[1.5rem] bg-card lg:p-8 shadow-[0_10px_40px_rgba(15,23,42,0.06)] p-5">
-        <ul className="space-y-4">
-          {chaos.map((item) => (
-            <li
-              key={item}
-              // items-center garantiza que el ícono quede perfectamente centrado respecto al texto
-              className="flex items-center gap-4 rounded-2xl bg-danger-soft/20 px-5 py-4 text-[0.95rem] leading-snug text-foreground/90 sm:text-base"
-            >
-              {/* Uso de SVG para garantizar un renderizado de bordes y centrado perfectos en cualquier pantalla */}
-              <svg 
-                className="h-6 w-6 shrink-0 text-danger"
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2"
-                aria-hidden="true"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 9.5l5 5M14.5 9.5l-5 5" />
-              </svg>
-              <span className="flex-1">{item}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+        <div className="mt-6 rounded-2xl bg-card p-4 shadow-panel lg:mt-0 lg:p-10">
+          <ul className="flex flex-col gap-3 lg:gap-4">
+            {chaosItems.map(([first, second]) => (
+              <li key={first} className="flex gap-3 rounded-lg bg-danger-soft/20 p-3.5 lg:gap-4 lg:p-3">
+                <CrossCircleIcon className="mt-0.5 h-5.5 w-5.5 shrink-0 text-danger" />
+                <span className="text-body lg:text-body-lg leading-6.25 lg:leading-6.5 text-foreground lg:text-balance">{first}<br className="hidden lg:block" /> {second}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

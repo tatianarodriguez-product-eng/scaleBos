@@ -1,36 +1,3 @@
-export const faqs = [
-  {
-    id: "faq-different",
-    question: "How is this different from other tools?",
-    answer:
-      "This isn't another empty app you have to set up yourself, but a done-for-you implementation where I first learn exactly how your business operates. Then I build the system around the way you and your team already work, so every page, pipeline, and dashboard fits your business 100%.",
-  },
-  {
-    id: "faq-duration",
-    question: "How long does it take?",
-    answer:
-      "The full install runs across 8 weeks: one week to map the business, two to build the system, one to train your team, then 30 days of hands-on support after delivery.",
-  },
-  {
-    id: "faq-disrupt",
-    question: "Will switching disrupt my business?",
-    answer:
-      "No. I design the system around how you already work and move client data, financial records, and documents in the background. You keep coaching. Training happens in week 4, after the system is already in place.",
-  },
-  {
-    id: "faq-team",
-    question: "Will my team actually be able to use it?",
-    answer:
-      "Yes. Every team member gets their own workspace, and I train you and your team separately so nobody is left behind. If they aren't independently running the system after 30 days, I keep working with you at no extra cost until they are.",
-  },
-  {
-    id: "faq-small",
-    question: "Aren't we too small for this right now?",
-    answer:
-      "If you're under €10k/mo, still solo with no plan to hire, or looking for a template to set up yourself, this isn't the right fit. I only take fitness, nutrition, and health coaching businesses that already have demand and a team — or are building one.",
-  },
-] as const;
-
 export const niches = ["Fitness", "Nutrition", "Health", "Hybrid / other"] as const;
 
 export const revenueRanges = [
@@ -51,37 +18,43 @@ export const testimonials = [
   {
     id: "rocco",
     name: "Rocco",
+    business: "RokYourBody",
     role: "Fitness coach",
     quote: "“Since my team moved onto the new system, I don’t want to say I do nothing anymore, but I do very little compared to before.”",
-    posterLabel: "PLACEHOLDER · Rocco testimonial video (30–60s)",
-    videoSrc: "",
+    cover: "/images/testimonials/rocco-cover-v4.jpg",
+    videoSrc: "https://player.vimeo.com/video/1245084933?h=0ad24aa31b",
+    videoShape: "landscape",
   },
   {
     id: "letizia",
     name: "Letizia",
+    business: "Balance Consulting",
     role: "Nutrition coach",
     quote: "“My team doesn’t come to me asking ‘where is this?’ anymore. They find everything by themselves, and that’s the best part.”",
-    posterLabel: "PLACEHOLDER · Letizia testimonial video (30–60s)",
-    videoSrc: "",
+    cover: "/images/testimonials/letizia-cover-v4.jpg",
+    videoSrc: "https://player.vimeo.com/video/1245084932?h=06fc8ec043",
+    videoShape: "landscape",
   },
   {
     id: "marco",
     name: "Marco",
+    business: "Marco Alive",
     role: "Health coach",
     quote: "“With the entire program and all the videos in one place, my clients work through it more easily, and they’re even more motivated.”",
-    posterLabel: "PLACEHOLDER · Marco testimonial video (30–60s)",
-    videoSrc: "",
+    cover: "/images/testimonials/marco-cover-v5.jpg",
+    videoSrc: "https://player.vimeo.com/video/1245084934?h=640b45686e",
+    videoShape: "portrait",
   },
 ] as const;
 
 export const hubs = [
   {
     name: "Company",
-    body: "Your processes, documents, and training materials in one place your team can reach without asking you.",
+    body: "Your processes, documents, updates, and training materials in one place your team can reach without asking you.",
   },
   {
     name: "Operations",
-    body: "Projects, tasks, goals, and KPIs in one view, where nothing slips, and nobody waits for your involvement.",
+    body: "Projects, tasks, meetings, goals, and KPIs in one view, where nothing slips, and nobody waits for your involvement.",
   },
   {
     name: "Marketing",
@@ -102,6 +75,11 @@ export const hubs = [
   {
     name: "Team",
     body: "A private workspace for every member, with their own access and commissions calculated automatically each month.",
+  },
+  {
+    // Approved by Przemek 16 Nov
+    name: "Personal",
+    body: "A space just for you to collect and track what you love outside work, like recipes, books, and travel plans.",
   },
 ] as const;
 
@@ -128,18 +106,26 @@ export const steps = [
   }
 ] as const;
 
+// Where the roadmap arrives: the last card in the roadmap zigzag, marked with a blue dot + outline
+export const roadmapOutcome = {
+  label: "THE RESULT",
+  title: "Ready to scale",
+  description: "With every process in place and your team working on their own, you finally get your time back to grow the business.",
+} as const;
+
+// "\n" = Figma's desktop line break (mobile wraps naturally)
 export const idealFit = [
-  "You run a fitness, nutrition, or health coaching business making over €10k/mo",
-  "You have a team (or you're building one), and you've become its bottleneck",
-  "You sign new clients every month, so your demand is already proven",
-  "You're ready to organize your business so it can run without you"
+  "You run a fitness, nutrition, or health\ncoaching business making over €10k/mo",
+  "You have a team (or you're building one),\nand you've become its bottleneck",
+  "You sign new clients every month, so your\ndemand is already proven",
+  "You're ready to organize your business so it\ncan run without you"
 ] as const;
 
 export const notFit = [
-  "You're under €10k/mo, so the chaos isn't costing you enough yet",
-  "You're a solo coach or PT with no plans to build a team yet",
-  "Your income comes mainly from brand deals instead of coaching clients",
-  "You want a template, a shortcut, or a build-it-yourself solution"
+  "You're under €10k/mo, so the chaos isn't\ncosting you enough yet",
+  "You're a solo coach or PT with no plans to\nbuild a team yet",
+  "Your income comes mainly from brand deals\ninstead of coaching clients",
+  "You want a template, a shortcut, or a\nbuild-it-yourself solution"
 ] as const;
 
 export const BOOKING_FORM_OPTIONS = {
@@ -214,10 +200,35 @@ export const faqData: FaqItem[] = [
   },
   {
     question: "Will my team actually be able to use it?",
-    answer: "I build a system powerful enough to run your entire business from one place, but simple enough for people who've never used a tool like this. After the training, I stay by your side for 30 days, and if your team still isn't running it on their own, I keep working with you at no extra cost until they are."
+    answer: "I build a system powerful enough to run your entire business from one place, but simple enough for people who've never used a tool like this. After the training, I stay by your side for 30 days."
   },
   {
     question: "Aren't we too small for this right now?",
     answer: "It's easier to set this up while your team is small, because 5 people learn a new way of working much faster than 20. If you wait, you'll have more clients, more files, and more team members to move over, so the same job gets bigger, slower, and more expensive."
   }
+] as const;
+// "By the numbers" section (between Is this for you? and About me). Number in blue + rest of the heading, then one line.
+export const numbers = [
+  { id: "money", value: "€50k+", label: "saved per year", line: "On average, that's about €4,000 a month you keep instead of spending it on admin work." },
+  { id: "time", value: "60h+", label: "saved per month", line: "On average, that's about 15 hours a week you stop losing to admin and babysitting your team." },
+  { id: "retention", value: "90%", label: "client retention rate", line: "On average, 9 in 10 coaching clients stay, with every check-in and renewal date tracked." },
+  { id: "tools", value: "5+ tools", label: "replaced", line: "On average, your separate apps for clients, sales and content all move into one workspace." },
+] as const;
+
+// "The real problem" list. Each item is [first line, second line]; on desktop the second part starts a new line.
+export const chaosItems = [
+  ["Client sessions get missed, and nobody", "notices until the client messages you"],
+  ["Documents are scattered everywhere,", "and no one can find anything"],
+  ["Nobody knows which leads have been", "followed up on and which haven't"],
+  ["You spend your evenings getting", "new team members up to speed"],
+  ["You're never sure who's already", "paid this month and who hasn't"],
+] as const;
+
+// "How to fix it" list, same two-line format.
+export const fixOutcomes = [
+  ["All client sessions, check-ins, and", "progress are tracked and stored"],
+  ["Every document has its own place,", "so anyone can find it in 2 clicks"],
+  ["Setters and sales reps work on", "every lead from one clear pipeline"],
+  ["New staff onboard themselves", "with simple step-by-step tutorials"],
+  ["Finance dashboards show who's", "paid and who hasn't at a glance"],
 ] as const;

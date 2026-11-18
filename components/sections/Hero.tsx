@@ -1,89 +1,75 @@
 import Image from "next/image";
 import { AuditButton } from "@/components/ui/AuditButton";
 
-const stats = [
-  { value: "€50k+", label: "saved per year on average", accent: false },
-  { value: "60h+", label: "saved per month on average", accent: true },
-  { value: "5+ tools", label: "replaced on average", accent: false },
-  { value: "90%", label: "client retention rate", accent: true },
-];
-
 export function Hero() {
   return (
-    <section aria-labelledby="hero-title" className="bg-background px-5 py-12 sm:px-8 lg:px-10 lg:py-20">
-      <div className="mx-auto max-w-[72rem]">
-        {/* Grid principal: Texto izq, Imagen der */}
-        <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
-          
-          {/* Columna Izquierda: Copy */}
-          <div className="max-w-2xl">
-            <p className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary-soft px-3.5 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.15em] text-primary">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
+    <div className="relative overflow-x-clip">
+      <section id="hero" aria-labelledby="hero-title" className="mx-auto w-full max-w-page px-5 md:px-8 pt-8 pb-10 lg:py-16 lg:flex lg:min-h-[min(100svh_-_5rem,64rem)] lg:flex-col lg:justify-center">
+        <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[minmax(0,693fr)_minmax(0,483fr)] lg:items-center lg:gap-10">
+          {/* Left: copy */}
+          <div className="flex flex-col gap-6 lg:gap-0">
+            <p className="inline-flex w-fit items-center gap-2 text-tag font-bold uppercase tracking-[0.0225rem] text-primary lg:gap-3 lg:tracking-[0.034375rem]">
+              <span className="h-2 w-2 shrink-0 rounded-full bg-primary" aria-hidden="true" />
               For fitness, nutrition, & health coaches
             </p>
-            
+
             <h1
               id="hero-title"
-              className="text-[1.9rem] font-extrabold leading-[1.1] tracking-tight text-foreground lg:text-[3rem]"
+              className="text-display leading-[1.2] font-extrabold tracking-[-0.036em] text-foreground lg:mt-6 lg:text-display-lg lg:leading-[1.115] lg:tracking-[-0.0875rem]"
             >
-              Scale past <span className="text-primary">€100k/mo</span> without{" "}
-              <em className="italic text-muted font-bold">
-                operational chaos
-              </em>{" "}
-              <span className="text-primary">& save 15+ hours</span> each week
+              Scale past <span className="text-gradient-blue">€100k/mo</span>
+              <br />
+              without <em className="text-gradient-steel italic">operational chaos</em>
+              <br />& <span className="text-gradient-blue">save 15+ hours</span> each week
             </h1>
-            
-            <p className="mt-6 text-base leading-relaxed text-muted sm:text-lg max-w-[540px]">
-              I install a <strong className="font-semibold text-foreground">done-for-you operating system</strong> so you can run
-              your entire coaching business from one organized place. <span className="mt-1 underline decoration-foreground/30 underline-offset-4">
-                And I don&apos;t stop until your whole team fully adopts it.
-              </span>
+
+            <p className="text-body leading-6.75 text-muted lg:mt-6 lg:max-w-170 lg:text-balance lg:text-title-lg lg:leading-[1.583] lg:font-normal lg:tracking-normal">
+              I install a <strong className="font-semibold text-foreground">done-for-you operating system</strong> in just 4&nbsp;weeks
+              <br className="hidden xl:block" /> so you and your team can run your entire coaching business from one organized, beautifully designed place.
             </p>
-            
-            <div className="mt-8 md:mt-10">
-              <AuditButton />
+
+            {/* Button + how the free audit works. Side by side from xl (1280px), stacked below that */}
+            <div className="flex flex-col gap-5 lg:mt-10 xl:flex-row xl:items-center xl:gap-5.5">
+              <AuditButton className="md:self-start xl:shrink-0 xl:self-center" />
+              <ol className="flex flex-col gap-2.5 xl:border-l-2 xl:border-primary-soft xl:pl-4.5">
+                {[
+                  "You show me how you run your business",
+                  "We uncover where you lose the most time",
+                  "You leave knowing exactly what to fix first",
+                ].map((step, i) => (
+                  <li key={step} className="flex items-center gap-2.5 text-body leading-5.5 text-foreground lg:text-body-lg xl:whitespace-nowrap">
+                    <span className="flex h-5.5 w-5.5 shrink-0 items-center justify-center rounded-full bg-primary-soft text-small font-bold text-primary" aria-hidden="true">
+                      {i + 1}
+                    </span>
+                    {step}
+                  </li>
+                ))}
+              </ol>
             </div>
           </div>
 
-          {/* Columna Derecha: Imagen */}
-          <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-            <div className="overflow-hidden rounded-[1.5rem] bg-card p-2 md:p-2.5 shadow-[0px_4px_12px_rgba(15,30,54,0.08),0px_16px_48px_rgba(37,99,235,0.18)]">
-              {/* aspect-[4/5] le da la forma de retrato (vertical) para que no se vea chata */}
-              <div className="relative aspect-square sm:aspect-[4/4.2] overflow-hidden rounded-[1.1rem]">
+          {/* Right: founder photo */}
+          <div className="relative w-full md:mx-auto md:max-w-md lg:mx-0 lg:max-w-115 lg:justify-self-end">
+            <div className="bg-(image:--gradient-photo-glow) pointer-events-none absolute left-1/2 top-1/2 h-125 w-125 -translate-x-1/2 -translate-y-1/2 lg:h-225 lg:w-225" aria-hidden="true" />
+            <div className="relative rounded-2xl bg-card p-2 shadow-photo lg:p-3 lg:shadow-photo-lg">
+              <div className="relative aspect-[334/322] overflow-hidden rounded-lg bg-slate lg:aspect-[436/470]">
                 <Image
                   src="/images/przemek-hero.jpg"
                   alt="Przemek, founder of ScaleBos"
                   fill
                   priority
                   className="object-cover object-[center_40%]"
-                  sizes="(max-width: 1024px) 90vw, 500px"
+                  sizes="(max-width: 48rem) 92vw, 28rem"
                 />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/90 via-navy/40 to-transparent p-5 pt-20">
-                  <p className="font-bold text-white text-lg">Przemek</p>
-                  <p className="text-sm font-medium text-white/80">Founder of ScaleBos</p>
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col gap-1 bg-(image:--gradient-photo-fade) px-5 pt-10 pb-4.5 lg:gap-0 lg:px-4 lg:pb-4">
+                  <p className="text-body leading-6 font-bold text-white lg:text-body-lg lg:leading-6.25 lg:tracking-[-0.0125rem]">Przemek</p>
+                  <p className="text-small leading-4.25 font-semibold text-white/90 lg:leading-4.5 lg:tracking-[0.015rem]">Founder of ScaleBos</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        {/* Barra de Estadísticas Inferior */}
-        <div className="mt-16 md:mt-20 rounded-[1.5rem] bg-primary-soft shadow-sm px-6 py-8 md:p-10">
-          <dl className="grid grid-cols-2 gap-y-8 divide-primary/10 sm:grid-cols-4 sm:divide-x sm:gap-y-0">
-            {stats.map((stat) => (
-              <div key={stat.value} className="flex flex-col items-center px-4 text-center">
-                <dt className={`text-3xl lg:text-4xl font-extrabold tracking-tight ${stat.accent ? "text-primary" : "text-foreground"}`}>
-                  {stat.value}
-                </dt>
-                <dd className="mt-2 max-w-[12rem] text-xs font-medium leading-snug text-muted">
-                  {stat.label}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-        
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }
