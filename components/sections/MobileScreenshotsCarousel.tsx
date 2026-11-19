@@ -20,9 +20,9 @@ export default function MobileScreenshotsCarousel() {
     const handleScroll = () => {
       if (!scrollRef.current) return;
       const scrollPosition = scrollRef.current.scrollLeft;
-      const width = scrollRef.current.clientWidth;
-      // Calcula qué slide está más centrado
-      const index = Math.round(scrollPosition / width);
+      const slide = scrollRef.current.firstElementChild as HTMLElement | null;
+      const width = slide ? slide.offsetWidth + 12 : scrollRef.current.clientWidth;
+      const index = Math.min(individualScreenshots.length - 1, Math.round(scrollPosition / width));
       setActiveIndex(index);
     };
 
@@ -39,7 +39,8 @@ export default function MobileScreenshotsCarousel() {
 
   const scrollTo = (index: number) => {
     if (!scrollRef.current) return;
-    const width = scrollRef.current.clientWidth;
+    const slide = scrollRef.current.firstElementChild as HTMLElement | null;
+    const width = slide ? slide.offsetWidth + 12 : scrollRef.current.clientWidth;
     scrollRef.current.scrollTo({
       left: width * index,
       behavior: 'smooth'
@@ -47,7 +48,7 @@ export default function MobileScreenshotsCarousel() {
   };
 
   return (
-    <div className="w-full flex flex-col gap-5">
+    <div className="w-full flex flex-col gap-4">
       {/* 
         Contenedor del Carrusel: 
         - snap-x snap-mandatory: Scroll nativo CSS para rendimiento
@@ -55,22 +56,22 @@ export default function MobileScreenshotsCarousel() {
       */}
       <div
         ref={scrollRef}
-        className="flex w-full overflow-x-auto snap-x snap-mandatory hub-scroll gap-4 pb-2"
+        className="flex w-full overflow-x-auto snap-x snap-mandatory hub-scroll gap-3"
       >
         {individualScreenshots.map((shot) => (
           <div
             key={shot.id}
             // w-[85%] permite que se asome un poco la siguiente imagen (mejor UX)
-            className="relative w-[85%] shrink-0 snap-center rounded-2xl overflow-hidden shadow-lg border border-border bg-navy"
+            className="relative w-77.5 max-w-[88%] shrink-0 snap-start rounded-xl overflow-hidden border-2 border-primary bg-navy"
           >
             {/* Ajusta el aspect ratio según las proporciones de tus pantallazos */}
-            <div className="relative w-full aspect-[4/5]">
+            <div className="relative w-full aspect-[310/400]">
               <Image
                 src={shot.src}
                 alt={shot.alt}
                 fill
                 className="object-cover"
-                sizes="(max-width: 768px) 85vw, 50vw"
+                sizes="19.375rem"
               />
             </div>
           </div>
@@ -78,16 +79,20 @@ export default function MobileScreenshotsCarousel() {
       </div>
 
       {/* Paginación (Dots) */}
-      <div className="flex justify-center items-center gap-2">
+      <div className="-my-4.5 flex justify-center items-center">
         {individualScreenshots.map((_, index) => (
           <button
             key={index}
             onClick={() => scrollTo(index)}
             aria-label={`Go to screenshot ${index + 1}`}
-            className={`h-2 rounded-full transition-all duration-300 ${
-              activeIndex === index ? 'w-4 bg-primary' : 'w-2 bg-primary/30'
-            }`}
-          />
+            className="flex h-11 w-4 items-center justify-center"
+          >
+            <span
+              className={`h-2 w-2 rounded-full transition-colors duration-300 ${
+                activeIndex === index ? 'bg-primary' : 'bg-indigo-soft'
+              }`}
+            />
+          </button>
         ))}
       </div>
     </div>

@@ -4,6 +4,7 @@ import AboutSection from "@/components/sections/About";
 import BookingSection from "@/components/sections/Booking";
 import FaqSection from "@/components/sections/Faq";
 import { Hero } from "@/components/sections/Hero";
+import NumbersSection from "@/components/sections/Numbers";
 import { HiddenCost } from "@/components/sections/HiddenCost";
 import { HowToFix } from "@/components/sections/HowToFix";
 import { Problem } from "@/components/sections/Problem";
@@ -18,17 +19,18 @@ export default function Home() {
       <Header />
       <main className="flex-1 flex flex-col">
         <Hero />
-      </main>
+      <TestimonialsSection/>
       <Problem/>
       <HiddenCost/>
       <HowToFix/>
       <WhatYouGet/>
       <RoadmapSection/>
+      <NumbersSection/>
       <QualificationSection/>
-      <TestimonialsSection/>
       <AboutSection/>
       <BookingSection/>
       <FaqSection/>
+      </main>
       <Footer/>
     </>
   );

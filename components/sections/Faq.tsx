@@ -1,5 +1,6 @@
 'use client';
 
+import { ChevronDownIcon } from '@/components/ui/UiIcons';
 import { faqData } from '@/lib/content';
 import React, { useState } from 'react';
 import { AuditButton } from '../ui/AuditButton';
@@ -29,70 +30,45 @@ export default function FaqSection() {
   };
 
   return (
-    <section 
-      aria-labelledby="faq-title" 
-      className="py-24 px-4 md:px-8 bg-[#FAF8FF]"
-    >
+    <section aria-labelledby="faq-title" className="mx-auto w-full max-w-page px-5 md:px-8 py-14 lg:py-24">
       {/* Inyección de JSON-LD para GEO/SEO */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(generateFaqSchema()) }}
       />
 
-      <div className="max-w-3xl mx-auto">
-        
-        {/* Encabezado */}
-        <div className="text-center mb-12">
-          <span className="text-primary uppercase tracking-widest text-xs font-bold">
-            FAQ
-          </span>
-          <h2 
-            id="faq-title" 
-            className="text-3xl md:text-5xl font-bold text-foreground mt-4 leading-tight"
-          >
-            Questions I hear before<br className="hidden md:block" /> every coach starts their install
+      <div className="lg:mx-auto lg:max-w-192">
+        <div className="lg:text-center">
+          <p className="text-tag font-bold uppercase text-primary">FAQ</p>
+          <h2 id="faq-title" className="text-h2 lg:text-h2-lg font-bold text-foreground mt-3 lg:mt-4">
+            Questions I hear before<br className="hidden lg:block" /> every coach starts their&nbsp;install
           </h2>
         </div>
 
-        {/* Lista de Acordeones */}
-        <div className="space-y-4">
+        <div className="mt-6 flex flex-col gap-3 lg:mt-14 lg:gap-4">
           {faqData.map((faq, index) => {
             const isOpen = openIndex === index;
             const contentId = `faq-content-${index}`;
             const buttonId = `faq-button-${index}`;
 
             return (
-              <div 
-                key={index}
-                className="bg-card border border-border/50 rounded-xl overflow-hidden shadow-sm transition-colors hover:border-primary/30"
-              >
+              <div key={index} className="rounded-2xl bg-card p-5 shadow-subtle lg:p-6">
                 <h3>
                   <button
                     id={buttonId}
                     aria-expanded={isOpen}
                     aria-controls={contentId}
                     onClick={() => toggleAccordion(index)}
-                    className="flex justify-between items-center w-full p-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+                    className="relative flex w-full items-center justify-between gap-4 text-left before:absolute before:-inset-5 before:content-[''] lg:before:-inset-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
                   >
-                    <span className="text-lg md:text-xl font-bold text-foreground pr-8">
+                    <span className="text-body leading-6.25 font-semibold text-foreground lg:text-title lg:leading-7 lg:tracking-[-0.0125rem]">
                       {faq.question}
                     </span>
-                    
-                    {/* Icono animado */}
-                    <span 
-                      className="text-primary shrink-0 transition-transform duration-300 ease-in-out"
-                      style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                      aria-hidden="true"
-                    >
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </span>
+                    <ChevronDownIcon className={`h-1.75 w-3 shrink-0 text-primary transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
                   </button>
                 </h3>
-                
-                {/* Contenido del Acordeón (Transición CSS vía Grid) */}
-                <div 
+
+                <div
                   id={contentId}
                   role="region"
                   aria-labelledby={buttonId}
@@ -101,22 +77,17 @@ export default function FaqSection() {
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <div className="p-6 pt-0 text-muted text-base leading-relaxed">
-                      {faq.answer}
-                    </div>
+                    <p className="text-body lg:text-body-lg text-muted lg:text-balance pt-4 lg:max-w-160 lg:pt-3.75">{faq.answer}</p>
                   </div>
                 </div>
-
               </div>
             );
           })}
         </div>
 
-        {/* Botón CTA inferior */}
-        <div className="mt-12 flex justify-center">
-         <AuditButton />
+        <div className="mt-6 flex justify-center lg:mt-14">
+          <AuditButton />
         </div>
-
       </div>
     </section>
   );
