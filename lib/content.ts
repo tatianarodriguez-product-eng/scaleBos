@@ -150,6 +150,16 @@ export const BOOKING_FORM_OPTIONS = {
   ]
 };
 
+// The 3 steps of the free audit call, shown in the hero and in the booking section
+export const AUDIT_STEPS = [
+  "You show me how you run your business",
+  "We uncover where you lose the most time",
+  "You leave knowing exactly what to fix first",
+] as const;
+
+export const BOOKING_SUBMIT_ERROR =
+  "Something went wrong saving your details. Please try again, or email przemek@scalebos.net.";
+
 export const BOOKING_ERROR_MESSAGES = {
   fullName: {
     required: "Full name is required.",
@@ -158,10 +168,6 @@ export const BOOKING_ERROR_MESSAGES = {
   email: {
     required: "Email address is required.",
     invalid: "Please enter a valid email address."
-  },
-  phone: {
-    required: "Phone number is required.",
-    invalid: "Please enter a valid phone number (e.g., +1 555 000 0000)."
   },
   niche: {
     required: "Please select your coaching niche."

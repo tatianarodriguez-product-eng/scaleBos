@@ -11,7 +11,7 @@ export function Footer() {
         <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:gap-2">
           <Logo className="lg:h-4 lg:w-23.25" />
           <span className="text-small text-muted">© 2026 ScaleBos. All rights reserved.</span>
-          <a
+          <Link
             href="https://www.instagram.com/scalebos/"
             target="_blank"
             rel="noopener"
@@ -19,7 +19,7 @@ export function Footer() {
             className="-ml-3.5 flex h-12 w-12 items-center justify-center text-muted hover:text-foreground lg:ml-2 lg:h-6 lg:w-6"
           >
             <InstagramIcon className="h-5 w-5" />
-          </a>
+          </Link>
         </div>
         <nav className="flex flex-wrap items-center gap-x-6 whitespace-nowrap text-small text-muted" aria-label="Legal">
           <Link href="/privacy" className="flex h-12 items-center hover:text-foreground lg:h-auto">

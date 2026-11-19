@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { AuditButton } from "@/components/ui/AuditButton";
+import { AUDIT_STEPS } from "@/lib/content";
 
 export function Hero() {
   return (
@@ -32,11 +33,7 @@ export function Hero() {
             <div className="flex flex-col gap-5 lg:mt-10 xl:flex-row xl:items-center xl:gap-5.5">
               <AuditButton className="md:self-start xl:shrink-0 xl:self-center" />
               <ol className="flex flex-col gap-2.5 xl:border-l-2 xl:border-primary-soft xl:pl-4.5">
-                {[
-                  "You show me how you run your business",
-                  "We uncover where you lose the most time",
-                  "You leave knowing exactly what to fix first",
-                ].map((step, i) => (
+                {AUDIT_STEPS.map((step, i) => (
                   <li key={step} className="flex items-center gap-2.5 text-body leading-5.5 text-foreground lg:text-body-lg xl:whitespace-nowrap">
                     <span className="flex h-5.5 w-5.5 shrink-0 items-center justify-center rounded-full bg-primary-soft text-small font-bold text-primary" aria-hidden="true">
                       {i + 1}

@@ -14,5 +14,24 @@ export const NOTION_OPTION_NAMES = {
 
 export const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const;
 export type UtmKey = (typeof UTM_KEYS)[number];
+export type UtmParams = Record<string, string>;
 
 export const CALENDLY_URL = 'https://calendly.com/przemek-scalebos/free-system-audit';
+
+// What the booking form sends to /api/lead
+export interface LeadDetails {
+  fullName: string;
+  email: string;
+  niche: string;
+  revenue: string;
+  teamSize: string;
+  handle: string;
+}
+
+// A lead saved by the form, handed to the booking calendar
+export interface SavedLead {
+  id: string | null; // null when the server treated the submission as a bot
+  name: string;
+  email: string;
+  utm: UtmParams;
+}

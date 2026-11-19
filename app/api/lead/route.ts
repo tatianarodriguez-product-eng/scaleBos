@@ -1,15 +1,23 @@
 import { NextResponse } from 'next/server';
 import { NOTION_OPTION_NAMES } from '@/lib/leads';
+import { EMAIL_PATTERN, FULL_NAME_PATTERN, HANDLE_PATTERN, NOTION_PAGE_ID_PATTERN } from '@/lib/validation';
 
 // Server only: the Notion key never reaches the browser.
-// Environment variables (Netlify, or .env.local to run locally; see .env.example):
-// NOTION_TOKEN and NOTION_LEADS_DB_ID. Neither lives in the code.
+// Environment variables, set in Netlify (or in .env.local to run locally, never committed):
+// NOTION_TOKEN (the Notion key) and NOTION_LEADS_DB_ID (the Leads CRM database). Neither lives in the code.
 const NOTION_VERSION = '2022-06-28';
+
+const URL_SCHEME_PATTERN = /^https?:\/\//i; // starts with http:// or https://
+const LEADING_AT_PATTERN = /^@/;
+const DASHES_PATTERN = /-/g;
+
+// Notion IDs come with or without dashes; compare them without
+const withoutDashes = (id: string) => id.replace(DASHES_PATTERN, '');
 
 function leadsDbId() {
   const id = process.env.NOTION_LEADS_DB_ID;
   if (!id) throw new Error('NOTION_LEADS_DB_ID is not set');
-  return id.replace(/-/g, '');
+  return withoutDashes(id);
 }
 
 type NicheKey = keyof typeof NOTION_OPTION_NAMES.niche;
@@ -34,12 +42,21 @@ const select = (name: string) => ({ select: { name } });
 // "Social media" is a URL field: turn "@handle" or "site.com" into a link
 function toUrl(handle: string): string | null {
   if (!handle) return null;
-  if (/^https?:\/\//i.test(handle)) return handle;
+  if (URL_SCHEME_PATTERN.test(handle)) return handle;
   if (handle.includes('.') && !handle.startsWith('@')) return `https://${handle}`;
-  return `https://instagram.com/${handle.replace(/^@/, '')}`;
+  return `https://instagram.com/${handle.replace(LEADING_AT_PATTERN, '')}`;
 }
 
-async function notion(path: string, method: string, body: unknown) {
+class NotionError extends Error {
+  constructor(readonly status: number, body: string) {
+    super(`Notion ${status}: ${body}`);
+  }
+}
+
+// Notion answers 404 for a page that doesn't exist or isn't shared with the website key
+const isNotFound = (err: unknown) => err instanceof NotionError && err.status === 404;
+
+async function notion(path: string, method: 'GET' | 'POST' | 'PATCH', body?: unknown) {
   const token = process.env.NOTION_TOKEN;
   if (!token) throw new Error('NOTION_TOKEN is not set');
   const res = await fetch(`https://api.notion.com/v1/${path}`, {
@@ -49,10 +66,10 @@ async function notion(path: string, method: string, body: unknown) {
       'Notion-Version': NOTION_VERSION,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(body),
+    body: body === undefined ? undefined : JSON.stringify(body),
     cache: 'no-store',
   });
-  if (!res.ok) throw new Error(`Notion ${res.status}: ${await res.text()}`);
+  if (!res.ok) throw new NotionError(res.status, await res.text());
   return res.json();
 }
 
@@ -75,7 +92,7 @@ export async function POST(req: Request) {
   const teamSize = NOTION_OPTION_NAMES.teamSize[clean(body.teamSize) as TeamKey];
   const handle = clean(body.handle, 300);
 
-  if (!fullName || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !niche || !revenue || !teamSize || !handle) {
+  if (!FULL_NAME_PATTERN.test(fullName) || !EMAIL_PATTERN.test(email) || !niche || !revenue || !teamSize || !HANDLE_PATTERN.test(handle)) {
     return NextResponse.json({ error: 'Missing or invalid fields' }, { status: 400 });
   }
 
@@ -114,16 +131,15 @@ export async function PATCH(req: Request) {
   } catch {
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
-  if (!/^[0-9a-f-]{32,36}$/i.test(id)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 });
+  if (!NOTION_PAGE_ID_PATTERN.test(id)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 });
 
   try {
     // Only touch rows that live in the Leads CRM
-    const token = process.env.NOTION_TOKEN;
-    const page = await fetch(`https://api.notion.com/v1/pages/${id}`, {
-      headers: { Authorization: `Bearer ${token}`, 'Notion-Version': NOTION_VERSION },
-      cache: 'no-store',
-    }).then((r) => r.json());
-    const parent = String(page?.parent?.database_id ?? '').replace(/-/g, '');
+    const page = await notion(`pages/${id}`, 'GET').catch((err) => {
+      if (isNotFound(err)) return null;
+      throw err; // outage or rate limit: logged below as a 502
+    });
+    const parent = withoutDashes(String(page?.parent?.database_id ?? ''));
     if (!parent || parent !== leadsDbId()) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
